@@ -1,0 +1,28 @@
+GET http://localhost:3000/api/post
+auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDliZmVlMDhiOWI4MTkzZjQ5MjQxZTkiLCJpYXQiOjE2MjA5MDEyNjgsImV4cCI6MTYyMDkwMTMyOH0.ZwBzcvXb-NaXL_9OKLjgPfAWgGenroKrdzgrnwlgXj0
+
+###
+
+POST http://localhost:3000/api/user/login
+Content-Type: application/json
+
+{
+  "email": "test@gmail.com",
+  "password": "abcd123"
+}
+
+###
+POST http://localhost:3000/api/user/refreshToken
+Content-Type: application/json
+
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDliZmVlMDhiOWI4MTkzZjQ5MjQxZTkiLCJpYXQiOjE2MjA5MDEyNjh9.C40j_kmKhvyQVp5P6-14kp8wDDHYW7ufEQ4snLPsQH8"
+}
+
+###
+POST http://localhost:3000/api/user/logout
+Content-Type: application/json
+
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDliZmVlMDhiOWI4MTkzZjQ5MjQxZTkiLCJpYXQiOjE2MjA5MDEyNjgsImV4cCI6MTYyMDkwMTMyOH0.ZwBzcvXb-NaXL_9OKLjgPfAWgGenroKrdzgrnwlgXj0"
+}
