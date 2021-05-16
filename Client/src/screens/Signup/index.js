@@ -34,8 +34,7 @@ function Register({ navigation })
             style={Haladie.all}
             blurRadius={3}
         >
-            <View style={Haladie.view1}></View>
-            <View style={Haladie.view2}>
+            <View style={Haladie.view1}>
             <TextInput style={[Haladie.input]}
                        placeholder='Email' 
                        onChangeText={(text) => setemail(text)}
@@ -88,14 +87,18 @@ const Haladie = StyleSheet.create({
 
     },
     view1: {
-        flex: 2.9
+        flex: 3,
+        justifyContent: 'flex-end',
+        alignItems: 'baseline',
+        flexDirection: 'column'
     },
     view2: {
-        flex: 2,
-        marginTop:'10%'
+        flex: 1,
+        justifyContent: 'center',
     },
     view3: {
         flex: 1,
+        justifyContent: 'center'
     },
 
     input:{
@@ -108,7 +111,7 @@ const Haladie = StyleSheet.create({
         backgroundColor: '#FFF',
         opacity:0.7,
         justifyContent: 'flex-end',
-        marginBottom:'3%',
+        marginBottom:5
     },
     image: {
         width:180,
@@ -123,7 +126,6 @@ const Haladie = StyleSheet.create({
         borderRadius:7,
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop:'10%'
     },
     txtLogin: {
         color: '#fff',
