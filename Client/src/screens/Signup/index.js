@@ -34,28 +34,32 @@ function Register({ navigation })
             style={Haladie.all}
             blurRadius={3}
         >
-            <TextInput style={[Haladie.input, Haladie.username]}
+            <View style={Haladie.view1}></View>
+            <View style={Haladie.view2}>
+            <TextInput style={[Haladie.input]}
                        placeholder='Email' 
                        onChangeText={(text) => setemail(text)}
             >
             </TextInput>
-            <TextInput style={[Haladie.input, Haladie.username]}
+            <TextInput style={[Haladie.input]}
                        placeholder='Họ và Tên' 
                        onChangeText={(text) => setName(text)}
             >
             </TextInput>
-            <TextInput style={[Haladie.input, Haladie.password]}
+            <TextInput style={[Haladie.input]}
                        placeholder='Mật khẩu'
                        secureTextEntry={true}
                        onChangeText={(text) => setpassword(text)}
             >
             </TextInput>
-            <TextInput style={[Haladie.input, Haladie.password]}
+            <TextInput style={[Haladie.input]}
                        placeholder='Nhập lại mật khẩu'
                        secureTextEntry={true}
                        onChangeText={(text) => setrepassword(text)}
             >
             </TextInput>
+            </View>
+            <View style={Haladie.view2}>
             <TouchableOpacity
                 style={Haladie.btLogin}            
                 onPress={handleAddUser}
@@ -64,10 +68,13 @@ function Register({ navigation })
                         
                 }>Đăng Kí</Text>
             </TouchableOpacity>
-            <Text style={Haladie.txtfg}
+            <Text style={Haladie.txtregis}
                   onPress={() => navigation.navigate('Login')}  
             >Đã có tài khoản? Đăng nhập ngay!</Text>
+            </View>
+            <View style={Haladie.view3}>
             <Text style={Haladie.txtbot}>Chính sách Bảo mật | Điều Khoản và Điều kiện</Text>
+            </View>
         </ImageBackground>
     );
 }
@@ -78,24 +85,30 @@ const Haladie = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+
     },
+    view1: {
+        flex: 2.9
+    },
+    view2: {
+        flex: 2,
+        marginTop:'10%'
+    },
+    view3: {
+        flex: 1,
+    },
+
     input:{
         width:350,
         height:50,
         borderRadius:7,
         fontSize:22,
-        paddingHorizontal:15,
+        paddingHorizontal:'5%',
         color: 'black',
         backgroundColor: '#FFF',
         opacity:0.7,
-        top: 80
-    },
-    username:{
-        marginTop:0,
-        marginBottom:10
-    },
-    password:{
-        marginBottom:10
+        justifyContent: 'flex-end',
+        marginBottom:'3%',
     },
     image: {
         width:180,
@@ -110,7 +123,7 @@ const Haladie = StyleSheet.create({
         borderRadius:7,
         justifyContent: 'center',
         alignItems: 'center',
-        top: 130
+        marginTop:'10%'
     },
     txtLogin: {
         color: '#fff',
@@ -121,18 +134,16 @@ const Haladie = StyleSheet.create({
         fontSize:12,
         textDecorationLine:'underline',
         marginTop:50,
-        top: 100
     },
     txtregis:{
         textDecorationLine:'underline',
         marginTop:10,
-        top: 170
+        marginLeft:'11%'
         },
     txtfg:{
         textDecorationLine:'underline',
         marginBottom:10,
-        top:10,
-        left: 70
+        marginLeft:'35%'
     },
 });
 

@@ -2,11 +2,10 @@ import React, { useState } from 'react';
 import {View, Text, StyleSheet, TextInput,
          TouchableOpacity, 
         Alert, ImageBackground} from 'react-native';
-
 //This's what u see (_ _")
 function Login({ navigation })
 {
-  const [email, setEmail] = useState('');
+    const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 
 	const handleLogin = () => {
@@ -30,20 +29,24 @@ function Login({ navigation })
             style={Haladie.all}
             blurRadius={3}
         >
-            <TextInput 
+            <View style={Haladie.view1}></View>
+            <View style={Haladie.view2} >
+                <TextInput 
                        style={[Haladie.input, Haladie.username]}
                        onChangeText={(text) => setEmail(text)}
                        placeholder='Email' 
-            >
-            </TextInput>
-            <TextInput 
+                >
+                </TextInput>
+                <TextInput 
                        style={[Haladie.input, Haladie.password]}
                        placeholder='Mật khẩu'
                        secureTextEntry={true}
                        onChangeText={(text) => setPassword(text)}
-            >
-            </TextInput>
-            <Text style={Haladie.txtfg}>Quên mật khẩu? Nhấn vào đây</Text>
+                >
+                </TextInput>
+                <Text style={Haladie.txtfg}>Quên mật khẩu? Nhấn vào đây</Text>
+            </View>
+            <View style={Haladie.view2}>
             <TouchableOpacity
                 style={Haladie.btLogin}            
                 onPress={handleLogin}
@@ -53,7 +56,10 @@ function Login({ navigation })
             <Text style={Haladie.txtregis}
                   onPress={() => navigation.navigate('Signup')}
             >Chưa có tài khoản? Đăng kí ngay</Text>
-            <Text style={Haladie.txtbot}>Chính sách Bảo mật | Điều Khoản và Điều kiện</Text>
+            </View>
+            <View style={Haladie.view3}>
+                <Text style={Haladie.txtbot}>Chính sách Bảo mật | Điều Khoản và Điều kiện</Text>
+            </View>
         </ImageBackground>
     );
 }
@@ -64,24 +70,29 @@ const Haladie = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+
+    },
+    view1: {
+        flex: 2.5
+    },
+    view2: {
+        flex: 1,
+
+    },
+    view3: {
+        flex: 1,
     },
     input:{
         width:350,
         height:50,
         borderRadius:7,
         fontSize:22,
-        paddingHorizontal:15,
+        paddingHorizontal:'5%',
         color: 'black',
         backgroundColor: '#FFF',
         opacity:0.7,
-        top: 80
-    },
-    username:{
-        marginTop:10,
-        marginBottom:10
-    },
-    password:{
-        marginBottom:10
+        justifyContent: 'flex-end',
+        marginBottom:'3%',
     },
     image: {
         width:180,
@@ -96,7 +107,7 @@ const Haladie = StyleSheet.create({
         borderRadius:7,
         justifyContent: 'center',
         alignItems: 'center',
-        top: 130
+        marginTop:'10%'
     },
     txtLogin: {
         color: '#fff',
@@ -106,19 +117,17 @@ const Haladie = StyleSheet.create({
     txtbot:{
         fontSize:12,
         textDecorationLine:'underline',
-        marginTop:50,
-        top: 150
+        marginTop:'23%',
     },
     txtregis:{
         textDecorationLine:'underline',
         marginTop:10,
-        top: 170
+        marginLeft:'11%'
         },
     txtfg:{
         textDecorationLine:'underline',
         marginBottom:10,
-        top:80,
-        left: 70
+        marginLeft:'35%'
     },
 });
 
