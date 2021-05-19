@@ -84,7 +84,6 @@ const Haladie = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-
     },
     view1: {
         flex: 3,
