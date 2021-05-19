@@ -2,7 +2,8 @@
 import React, {useState} from 'react';
 import {View, Text, StyleSheet, TextInput, Image,
     TouchableOpacity, Alert, ImageBackground} from 'react-native';
-
+import { connect } from 'react-redux'
+import * as accActions from "../../store/Actions/AccountActions"
 
 //This's what u see (_ _")
 function Register({ navigation })
@@ -149,4 +150,31 @@ const Haladie = StyleSheet.create({
     },
 });
 
-export default Register;
+const mapStateToProps = (state) => {
+    return {
+        accData: state.accounts.accData,
+        accessToken: state.accounts.refreshToken,
+        refreshToken: state.accounts.refreshToken,
+    }
+}
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getAllAccounts: (data) => {
+            dispatch(accActions.getAllAccounts(data))
+        },
+        registerAccount: (data) => {
+            dispatch(accActions.registerAccount(data))
+        },
+        editAccount: (data) => {
+            dispatch(accActions.editAccount(data))
+        },
+        deleteAccount: (data) => {
+            dispatch(accActions.deleteAccount(data))
+        },
+        adminDeleteAccount: (data) => {
+            dispatch(accActions.adminDeleteAccount(data))
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

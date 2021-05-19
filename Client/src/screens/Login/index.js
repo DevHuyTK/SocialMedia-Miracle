@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import {View, Text, StyleSheet, TextInput,
          TouchableOpacity, 
         Alert, ImageBackground} from 'react-native';
+import { connect } from 'react-redux'
+import * as accActions from "../../store/Actions/AccountActions"
+
+
 //This's what u see (_ _")
 function Login({ navigation })
 {
@@ -134,4 +138,19 @@ const Haladie = StyleSheet.create({
     },
 });
 
-export default Login;
+const mapStateToProps = (state) => {
+    return {
+        accData: state.accounts.accData,
+        accessToken: state.accounts.refreshToken,
+        refreshToken: state.accounts.refreshToken,
+    }
+}
+const mapDispatchToProps = (dispatch) => {
+    return {
+        loginAccount: (data) => {
+            dispatch(accActions.loginAccount(data))
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
