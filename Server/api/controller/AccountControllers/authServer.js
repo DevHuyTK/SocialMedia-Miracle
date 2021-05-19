@@ -60,7 +60,7 @@ export const logout = (req, res) => {
   //Remove assgin token
   const refreshToken = req.body.token;
   refreshTokens = refreshTokens.filter((refToken) => refToken !== refreshToken);
-  res.sendStatus(200);
+  res.sendStatus(200).send('Logout success!!');
 };
 
 //REFRESH TOKEN
@@ -70,7 +70,6 @@ export const refreshToken = (req, res) => {
   if (!refreshTokens.includes(refreshToken)) res.sendStatus(403);
 
   jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, data) => {
-    console.log(err, data);
     if (err) res.sendStatus(403);
     const accessToken = jwt.sign({ email: data.email }, process.env.ACCESS_TOKEN_SECRET, {
       expiresIn: '60s',
@@ -104,19 +103,30 @@ export const getUsers = (req, res) => {
 
 //PUT INFO USER
 export const updateUser = async (req, res) => {
-  const info = await User.findByIdAndUpdate(req.params.id, req.body)
+  const info = await User.findOneAndUpdate(req.params.id, req.body)
   res.json({message: 'Update Success', info})
 }
 
 //DELETE USER(ROLE: MEMBER)
 export const deleteUser = async (req, res) => {
-  const info = await User.findByIdAndUpdate(req.params._id, {active: false})
+  const info = await User.findOneAndUpdate(req.params._id, {active: false})
   res.json({message: 'Delete User Success', info})
 }
 
 //DELETE USER(ROLE: ADMIN)
 export const deleteUserAdmin = async (req, res) => {
-  const info = await User.findByIdAndDelete(req.params._id)
+  const info = await User.findOneAndDelete(req.params._id)
   res.json({message: 'ADMIN Delete User Success'})
 }
 
+//CHECK EMAIL EXIST
+export const checkEmail = async (req, res) => {
+  const user = await User.findOne({ email: req.body.email });
+  if (user) return res.status(400).send('Email already exists!! Try again');
+}
+
+//CHECK TAG NAME EXIST
+export const checkTagName = async (req, res) => {
+  const user = await User.findOne({ tagname: req.body.tagname });
+  if (user) return res.status(400).send('TagName already exists!! Try again');
+}

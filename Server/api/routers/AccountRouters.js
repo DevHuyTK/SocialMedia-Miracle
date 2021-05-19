@@ -19,7 +19,15 @@ export default function (app) {
 
     app.route("/user/:id")
         .put(UserController.updateUser)
+
+    app.route('/user/delete/:id')
         .put(UserController.deleteUser)
         .delete(UserController.deleteUserAdmin)
 
+    app.route("/user/checkEmail")
+        .post(UserController.checkEmail)
+    
+    app.route('/user/checkTagName')
+        .post(UserController.checkTagName)
+        
 };

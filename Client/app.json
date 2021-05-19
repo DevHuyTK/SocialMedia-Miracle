@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "my-fist-project",
-    "slug": "my-fist-project",
-    "version": "1.0.0",
+    "name": "Social_Media_Miracle",
+    "slug": "Social_Media_Miracle",
+    "version": "0.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -17,7 +17,7 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true,
+      "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
