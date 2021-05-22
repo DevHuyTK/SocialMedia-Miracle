@@ -4,7 +4,7 @@ import registerAccount from '../../fetchAPIs/AccountAPI//createAccount'
 import editAccount from '../../fetchAPIs/AccountAPI//updateAccount'
 import deleteAccount from '../../fetchAPIs/AccountAPI//userDeleteAccount'
 import adminDeleteAccount from '../../fetchAPIs/AccountAPI//adminDeleteAccount'
-import loginAccount from '../../fetchAPIs/AccountAPI/loginAccount'
+import loginAccount from '../../fetchAPIs/AccountAPI/signinAccount'
 import * as types from '../constant'
 
 

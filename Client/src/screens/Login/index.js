@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import {View, Text, StyleSheet, TextInput,
          TouchableOpacity, 
         Alert, ImageBackground} from 'react-native';
-import { connect } from 'react-redux'
-import * as accActions from "../../store/Actions/AccountActions"
+import { connect } from 'react-redux';
+import * as accActions from '../../store/Actions/AccountActions';
 
 
 //This's what u see (_ _")
@@ -69,11 +69,11 @@ function Login({ navigation })
 
 //Style - Like CSS bro :)
 const Haladie = StyleSheet.create({
-    all: {
+    all: {  
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-
+        backgroundColor: 'rgba(0, 0, 0, .5)',
     },
     view1: {
         flex: 3,
