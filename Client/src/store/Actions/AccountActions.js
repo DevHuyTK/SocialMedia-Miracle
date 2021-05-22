@@ -30,7 +30,7 @@ export function adminDeleteAccount(payload){
         payload
     })
 }
-export function loginAccount(payload){
+export function singInAccount(payload){
     return({
         type: types.LOGIN_ACCOUNT_REQUEST,
         payload

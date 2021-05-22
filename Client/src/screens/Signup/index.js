@@ -151,9 +151,9 @@ const Haladie = StyleSheet.create({
 
 const mapStateToProps = (state) => {
     return {
-        accData: state.accounts.accData,
-        accessToken: state.accounts.refreshToken,
-        refreshToken: state.accounts.refreshToken,
+        accData: state.account.accData,
+        accessToken: state.account.refreshToken,
+        refreshToken: state.account.refreshToken,
     }
 }
 const mapDispatchToProps = (dispatch) => {
