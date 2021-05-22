@@ -1,19 +1,10 @@
 import { put, takeEvery } from 'redux-saga/effects'
-<<<<<<< HEAD
-import getAllAccounts from '../../fetchAPIs/AccountAPI/getAllAccount'
-import registerAccount from '../../fetchAPIs/AccountAPI//createAccount'
-import editAccount from '../../fetchAPIs/AccountAPI//updateAccount'
-import deleteAccount from '../../fetchAPIs/AccountAPI//userDeleteAccount'
-import adminDeleteAccount from '../../fetchAPIs/AccountAPI//adminDeleteAccount'
-import loginAccount from '../../fetchAPIs/AccountAPI/signinAccount'
-=======
 import getAllAccount from '../../fetchAPIs/AccountAPI/getAllAccount'
 import createAccount from '../../fetchAPIs/AccountAPI/createAccount'
 import updateAccount from '../../fetchAPIs/AccountAPI/updateAccount'
 import userDeleteAccount from '../../fetchAPIs/AccountAPI/userDeleteAccount'
 import adminDeleteAccount from '../../fetchAPIs/AccountAPI/adminDeleteAccount'
 import loginAccount from '../../fetchAPIs/AccountAPI/loginAccount'
->>>>>>> db3013ca565cca50d22f2fcbec6266413ec423d4
 import * as types from '../constant'
 
 function* getAllAccounts(action) {
