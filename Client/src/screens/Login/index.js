@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {View, Text, StyleSheet, TextInput,
          TouchableOpacity, 
         Alert, ImageBackground} from 'react-native';
@@ -7,7 +7,7 @@ import * as accActions from "../../store/Actions/AccountActions"
 
 
 //This's what u see (_ _")
-function Login({ navigation })
+function Login( props )
 {
     const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
@@ -20,11 +20,10 @@ function Login({ navigation })
 		if(password.trim() === '') {
 			return Alert.alert('Bạn chưa nhập mật khẩu');
 		}
-
-		if(email !== 'admin' || password !== 'admin') {
-			return Alert.alert('Tài khoản hoặc mật khẩu không đúng');
-		}
-    else { navigation.navigate('Home');}
+        
+        else {
+            props.navigation.navigate('Home');
+        }
 	}
     return (
      
@@ -149,6 +148,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         singInAccount: (data) => {
             dispatch(accActions.singInAccount(data))
+        },
+        getAllAccount: (data) => {
+            dispatch(accActions.getAllAccounts(data))
         }
     }
 }

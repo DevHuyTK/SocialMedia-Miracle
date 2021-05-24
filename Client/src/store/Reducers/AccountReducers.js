@@ -44,8 +44,6 @@ export default (state = DEFAULT_START, action) => {
                 dataFetched: false,
                 error: false,
                 errorMessage: null,
-                accessToken: action.payload.accessToken,
-                refreshToken: action.payload.refreshToken
                 //accData:action.payload,
             }
         case types.ADD_ACCOUNT_FAILURE:
@@ -91,6 +89,28 @@ export default (state = DEFAULT_START, action) => {
                 //accData:action.payload,
             }
         case types.DELETE_ACCOUNT_FAILURE:
+            return {
+                ...state,
+                isFetching: false,
+                error: true,
+                errorMessage: action.payload.error
+            }
+        case types.LOGIN_ACCOUNT_REQUEST:
+            return {
+                ...state,
+                isFetching: true
+            }
+        case types.LOGIN_ACCOUNT_SUCCESS:
+            return {
+                ...state,
+                accessToken: action.payload.accessToken,
+                refreshToken: action.payload.refreshToken,
+                isFetching: false,
+                dataFetched: false,
+                error: false,
+                errorMessage: null,
+            }
+        case types.LOGIN_ACCOUNT_FAILURE:
             return {
                 ...state,
                 isFetching: false,
