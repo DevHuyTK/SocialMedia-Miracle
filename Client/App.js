@@ -4,6 +4,7 @@ import redux from './src/store/store'
 import * as ScreenOrientation from 'expo-screen-orientation';
 import { Provider } from 'react-redux'
 
+
 export default function App() {
   React.useEffect(() => {
     lockOrientation()

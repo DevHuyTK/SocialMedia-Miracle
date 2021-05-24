@@ -32,35 +32,42 @@ function Login( props )
             style={Haladie.all}
             blurRadius={3}
         >
-            <View style={Haladie.view1} >
-                <TextInput 
-                       style={[Haladie.input, Haladie.username]}
-                       onChangeText={(text) => setEmail(text)}
-                       placeholder='Email' 
-                >
-                </TextInput>
-                <TextInput 
-                       style={[Haladie.input, Haladie.password]}
-                       placeholder='Mật khẩu'
-                       secureTextEntry={true}
-                       onChangeText={(text) => setPassword(text)}
-                >
-                </TextInput>
-                <Text style={Haladie.txtfg}>Quên mật khẩu? Nhấn vào đây</Text>
-            </View>
-            <View style={Haladie.view2}>
-            <TouchableOpacity
-                style={Haladie.btLogin}            
-                onPress={handleLogin}
-            >
-                <Text style={Haladie.txtLogin}>Đăng nhập</Text>
-            </TouchableOpacity>
-            <Text style={Haladie.txtregis}
-                  onPress={() => navigation.navigate('Signup')}
-            >Chưa có tài khoản? Đăng kí ngay</Text>
-            </View>
-            <View style={Haladie.view3}>
-                <Text style={Haladie.txtbot}>Chính sách Bảo mật | Điều Khoản và Điều kiện</Text>
+            <View style={Haladie.all}>
+                <View style={Haladie.all1}>
+                    <View style={Haladie.view4} ></View>
+                    <View style={Haladie.view1}>
+                            <TextInput 
+                            style={[Haladie.input, Haladie.username]}
+                            onChangeText={(text) => setEmail(text)}
+                            placeholder='Email' 
+                            placeholderTextColor = '#808080'
+                            >
+                            </TextInput>
+                            <TextInput 
+                            style={[Haladie.input, Haladie.password]}
+                            placeholder='Mật khẩu'
+                            secureTextEntry={true}
+                            onChangeText={(text) => setPassword(text)}
+                            placeholderTextColor = '#808080'
+                            >
+                            </TextInput>
+                            <Text style={Haladie.txtfg}>Quên mật khẩu? Nhấn vào đây</Text>
+                    </View>
+                    <View style={Haladie.view2}>
+                        <TouchableOpacity
+                            style={Haladie.btLogin}            
+                            onPress={handleLogin}
+                        >
+                        <Text style={Haladie.txtLogin}>Đăng nhập</Text>
+                        </TouchableOpacity>
+                        <Text style={Haladie.txtregis}
+                            onPress={() => navigation.navigate('Signup')}
+                        >Chưa có tài khoản? Đăng kí ngay</Text>
+                    </View>
+                    <View style={Haladie.view3}>
+                        <Text style={Haladie.txtbot}>Chính sách Bảo mật | Điều Khoản và Điều kiện</Text>
+                    </View>
+                </View>
             </View>
         </ImageBackground>
     );
@@ -69,47 +76,54 @@ function Login( props )
 //Style - Like CSS bro :)
 const Haladie = StyleSheet.create({
     all: {
+        width: '100%',
         flex: 1,
-        justifyContent: 'center',
+        justifyContent: 'space-between',
         alignItems: 'center',
-
+        backgroundColor: 'rgba(0,0,0,0.75)',
+    },
+    all1: {
+        flex: 1,
+        width: '90%',
+        justifyContent: 'space-between',
+        alignItems: 'stretch',
+    },
+    view4:{
+        flex: 2
     },
     view1: {
-        flex: 3,
-        justifyContent: 'flex-end',
-        alignItems: 'baseline',
-        flexDirection: 'column'
+        flex: 1,
+        justifyContent: 'space-around',
+        alignItems: 'stretch',
     },
     view2: {
         flex: 1,
-        justifyContent: 'center'
-
+        justifyContent: 'space-around',
     },
     view3: {
         flex: 1,
-        justifyContent: 'center'
+        justifyContent: 'center', 
+        alignItems: 'center',
+
     },
     input:{
-        width:350,
-        height:50,
+        flex:1,
+        width: 'auto',
         borderRadius:7,
-        fontSize:22,
+        fontSize:18,
         paddingHorizontal:'5%',
-        color: 'black',
-        backgroundColor: '#FFF',
-        opacity:0.7,
-        justifyContent: 'flex-end',
-        marginBottom: 5,
+        color: 'white',
+        borderBottomWidth: 1,
+        borderColor: 'white',
+        alignItems: 'center',
+        fontWeight: 'bold'
     },
     image: {
-        width:180,
-        height:200,
         resizeMode: 'cover',
         borderRadius:40
     },
     btLogin: {
-        width:300,
-        height:70,
+        height:50,
         backgroundColor:'#1877f2',
         borderRadius:7,
         justifyContent: 'center',
@@ -119,22 +133,25 @@ const Haladie = StyleSheet.create({
     txtLogin: {
         color: '#fff',
         fontSize: 24,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
     },
     txtbot:{
         fontSize:12,
         textDecorationLine:'underline',
+        color: '#fff',
     },
     txtregis:{
         textDecorationLine:'underline',
-        marginTop:10,
-        marginLeft:'11%'
+        color: '#fff',
+        alignSelf: 'center',
         },
     txtfg:{
         textDecorationLine:'underline',
-        marginBottom:10,
-        marginLeft:'35%'
+        marginTop:15,
+        alignSelf: 'flex-end',
+        color: '#fff',
     },
+    
 });
 
 const mapStateToProps = (state) => {
