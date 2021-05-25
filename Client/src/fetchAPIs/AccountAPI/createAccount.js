@@ -1,7 +1,7 @@
 export default function callAPI(data) {
     return new Promise((resolve, reject) =>
     {
-        const url = `http://localhost:3000/api/user/register`
+        const url = `http://localhost:3000/user/register`
         fetch(url,{
             headers:{"Content-type":"Application/json"},
             method:"POST",
@@ -11,10 +11,7 @@ export default function callAPI(data) {
                 email: data.email,
                 password: data.password,
                 age: data.age,
-                date: data.date,
-                active: data.active,
-                avatar: data.avatar,
-                role: data.role,
+                avatar: data.avatar
             })
         })
         //.then((response) => response.json())

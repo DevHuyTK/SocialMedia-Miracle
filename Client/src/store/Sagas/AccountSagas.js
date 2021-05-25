@@ -29,12 +29,11 @@ function* getAllAccounts(action) {
 
 function* registerAccount(action) {
     try {
-        const res = yield registerAccount(action.payload);
+        const res = yield createAccount(action.payload);
         yield put({
             type: types.ADD_ACCOUNT_SUCCESS,
             payload:{
-                accessToken: res.accessToken,
-                refreshToken: res.refreshToken
+                accData: res.data
             }
         })
         yield put({
@@ -109,7 +108,7 @@ function* DeleteAccountByAdmin(action) {
         yield put ({
             type: types.GET_ACCOUNT_REQUEST,
             payload: {
-                accData: action.payload
+                accData: res.data
             }
         })
     }
@@ -129,7 +128,14 @@ function* singInAccount(action) {
         yield put({
             type: types.LOGIN_ACCOUNT_SUCCESS,
             payload: {
-                accData: action.payload
+                accessToken: res.accessToken,
+                refreshToken: res.refreshToken
+            }
+        })
+        yield put ({
+            type: types.GET_ACCOUNT_REQUEST,
+            payload: {
+                accData: res.data
             }
         })
     }
