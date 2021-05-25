@@ -3,13 +3,13 @@ import mongoose from 'mongoose'
 const userSchema = new mongoose.Schema({
     name:{
         type: String,
-        default: '',
+        required: true,
         min:6,
         max:255
     },
     tagname:{
         type: String,
-        default: '',
+        required: true,
         min:4,
         max: 255
     },
@@ -26,8 +26,7 @@ const userSchema = new mongoose.Schema({
         max:1024
     },
     age:{
-        type: Number,
-        default: null
+        type: Number
     },
     date:{
         type: Date,

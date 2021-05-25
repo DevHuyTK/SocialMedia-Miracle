@@ -16,13 +16,17 @@ export const createUser = async (req, res) => {
   if (emailExist) return res.status(400).send('Email already exists');
 
   //Hash the passwords
-  const salt = await bcrypt.genSalt(10);
-  const hashedPassword = await bcrypt.hash(req.body.password, salt);
+  // const salt = await bcrypt.genSalt(10);
+  // const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
   //Create new User
   const user = new User({
+    name: req.body.name,
+    tagname: req.body.tagname,
     email: req.body.email,
-    password: hashedPassword,
+    password: req.body.password,
+    age: req.body.age,
+    avatar: req.body.avatar
   });
   try {
     const savedUser = await user.save();
@@ -43,7 +47,8 @@ export const login = async (req, res) => {
   if (!user) return res.status(400).send('Email is not found');
 
   //Password is correct
-  const validPass = await bcrypt.compare(req.body.password, user.password);
+  // const validPass = await bcrypt.compare(req.body.password, user.password);
+  const validPass = await User.findOne({ password: req.body.password });
   if (!validPass) return res.status(400).send('Invalid password');
 
   //Create and assgin a token
@@ -80,26 +85,24 @@ export const refreshToken = (req, res) => {
 
 //GET ALL USER
 export const getUsers = (req, res) => {
-  User.find({ active: true }, { __v: 0 }).exec(async (err, data) => {
+  User.find({ active: true }, { __v: 0 }).exec((err, data) => {
     if (err) res.send(err);
     res.json({
       data: data.map((element) => {
         return {
-          _id: element._id,
+          id: element._id,
           name: element.name,
           tagname: element.tagname,
           email: element.email,
           password: element.password,
           age: element.age,
-          date: element.date,
-          active: element.active,
-          avatar: element.avatar,
-          role: element.role,
-        };
-      }),
-    });
+          avatar: element.avatar
+        }
+      })
+    })
   });
 };
+
 
 //PUT INFO USER
 export const updateUser = async (req, res) => {
