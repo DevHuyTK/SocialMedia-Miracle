@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import {View, Text, StyleSheet, TextInput,
          TouchableOpacity, 
-        Alert, ImageBackground} from 'react-native';
+        Alert, ImageBackground, LogBox} from 'react-native';
 import { connect } from 'react-redux'
-import * as accActions from "../../store/Actions/AccountActions"
+import * as accActions from "../../../store/Actions/AccountActions"
 
 
 //This's what u see (_ _")
@@ -12,7 +12,38 @@ function Login( props )
     const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 
+    const fetchLogin = () => {
+         new Promise((resolve, reject) =>
+        {
+            const url = `http://192.168.0.102:3000/user/login`
+            fetch(url,{
+                headers:{"Content-type":"Application/json"},
+                method:"POST",
+                body:JSON.stringify({
+                    email: email,
+                    password: password
+                })
+            })
+            //.then((response) => response.json())
+            .then((response) => response.json())
+            .then((res) =>{
+                // console.log(res)
+                resolve(res);
+                return props.navigation.navigate('Home')
+            })
+            .catch((error) =>{
+                reject(error);
+                return Alert.alert('Tài khoản hoặc mật khẩu không đúng');
+            });
+            props.singInAccount({
+                email: email,
+                password: password
+            });
+        });
+    }
+
 	const handleLogin = () => {
+        fetchLogin();
 		if(email.trim() === '') {
 			return Alert.alert('Bạn chưa nhập tên tài khoản');
 		}
@@ -20,15 +51,14 @@ function Login( props )
 		if(password.trim() === '') {
 			return Alert.alert('Bạn chưa nhập mật khẩu');
 		}
-        
-        else {
-            props.navigation.navigate('Home');
-        }
-	}
+
+
+    }
+    LogBox.ignoreAllLogs(true)
     return (
      
         <ImageBackground 
-            source={require('../../images/Backrgorund.png')}
+            source={require('../../../images/Backrgorund.png')}
             style={Haladie.all}
             blurRadius={3}
         >
@@ -159,15 +189,16 @@ const mapStateToProps = (state) => {
         accData: state.account.accData,
         accessToken: state.account.refreshToken,
         refreshToken: state.account.refreshToken,
+        error: state.account.error
     }
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        singInAccount: (data) => {
-            dispatch(accActions.singInAccount(data))
-        },
         getAllAccount: (data) => {
             dispatch(accActions.getAllAccounts(data))
+        },
+        singInAccount: (data) => {
+            dispatch(accActions.singInAccount(data))
         }
     }
 }

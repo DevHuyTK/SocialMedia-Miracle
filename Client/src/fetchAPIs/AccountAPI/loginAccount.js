@@ -1,5 +1,3 @@
-import {Alert} from 'react-native';
-
 export default function callAPI(data) {
     console.log(JSON.stringify(data), "data: ")
     return new Promise((resolve, reject) =>
@@ -21,7 +19,6 @@ export default function callAPI(data) {
         })
         .catch((error) =>{
             reject(error);
-            return Alert.alert('Email hoặc mật khẩu không đúng');
         });
         
     });
