@@ -35,7 +35,6 @@ function Register({ navigation })
                         <TextInput 
                         style={[Haladie.input, Haladie.password]}
                         placeholder='Tagname'
-                        secureTextEntry={true}
                         onChangeText={(text) => setTagname(text)}
                         placeholderTextColor = '#808080'
                         >
