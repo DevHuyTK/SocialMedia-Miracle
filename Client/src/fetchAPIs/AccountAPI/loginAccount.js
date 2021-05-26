@@ -4,7 +4,7 @@ export default function callAPI(data) {
     console.log(JSON.stringify(data), "data: ")
     return new Promise((resolve, reject) =>
     {
-        const url = `http://192.168.0.102:3000/user/login`
+        const url = `http://192.168.1.111:3000/user/login`
         fetch(url,{
             headers:{"Content-type":"Application/json"},
             method:"POST",

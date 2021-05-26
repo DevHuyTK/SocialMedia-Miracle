@@ -4,14 +4,14 @@ import {View, Text, StyleSheet, TextInput,
         Alert, ImageBackground} from 'react-native';
 import { connect } from 'react-redux'
 import * as accActions from "../../store/Actions/AccountActions"
-
+import callAPI from "../../fetchAPIs/AccountAPI/loginAccount"
 
 //This's what u see (_ _")
 function Login( props )
 {
     const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-
+    const [message, setMessage] = useState('');
 	const handleLogin = () => {
 		if(email.trim() === '') {
 			return Alert.alert('Bạn chưa nhập tên tài khoản');
