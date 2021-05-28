@@ -1,22 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import {View, Text, StyleSheet, TextInput,
          TouchableOpacity, 
-        Alert, ImageBackground, LogBox} from 'react-native';
+        Alert, ImageBackground, LogBox, Dimensions} from 'react-native';
 import { connect } from 'react-redux'
-<<<<<<< HEAD:Client/src/screens/Account/Login/index.js
 import * as accActions from "../../../store/Actions/AccountActions"
 
-=======
-import * as accActions from "../../store/Actions/AccountActions"
 import callAPI from "../../fetchAPIs/AccountAPI/loginAccount"
->>>>>>> f71a7ba88a6fee1d70e6f374df61671208ad675d:Client/src/screens/Login/index.js
-
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 //This's what u see (_ _")
 function Login( props )
 {
     const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-<<<<<<< HEAD:Client/src/screens/Account/Login/index.js
 
     const fetchLogin = () => {
          new Promise((resolve, reject) =>
@@ -48,9 +44,7 @@ function Login( props )
         });
     }
 
-=======
     const [message, setMessage] = useState('');
->>>>>>> f71a7ba88a6fee1d70e6f374df61671208ad675d:Client/src/screens/Login/index.js
 	const handleLogin = () => {
         fetchLogin();
 		if(email.trim() === '') {
@@ -100,7 +94,7 @@ function Login( props )
                         <Text style={Haladie.txtLogin}>Đăng nhập</Text>
                         </TouchableOpacity>
                         <Text style={Haladie.txtregis}
-                            onPress={() => navigation.navigate('Signup')}
+                            onPress={() => props.navigation.navigate('Signup')}
                         >Chưa có tài khoản? Đăng kí ngay</Text>
                     </View>
                     <View style={Haladie.view3}>
@@ -115,6 +109,8 @@ function Login( props )
 //Style - Like CSS bro :)
 const Haladie = StyleSheet.create({
     all: {
+        width: windowWidth,
+        height: windowHeight,
         width: '100%',
         flex: 1,
         justifyContent: 'space-between',
@@ -123,7 +119,8 @@ const Haladie = StyleSheet.create({
     },
     all1: {
         flex: 1,
-        width: '90%',
+        width: windowWidth*0.9,
+        height: windowHeight,
         justifyContent: 'space-between',
         alignItems: 'stretch',
     },

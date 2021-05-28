@@ -1,18 +1,19 @@
 //Library - Of course!
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, TextInput, Image,
-    TouchableOpacity, Alert, ImageBackground} from 'react-native';
+import {View, Text, StyleSheet, TextInput,
+    TouchableOpacity, Alert, ImageBackground, Dimensions} from 'react-native';
 import { connect } from 'react-redux'
 import * as accActions from "../../../store/Actions/AccountActions"
-
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 //This's what u see (_ _")
 function Register({ navigation })
 {
-
+  const [tagname, setTagname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [repassword, setRepassword] = useState('');
-  const isInvalid = email === "" || password === "" || repassword ==="";
+  const isInvalid = email === "" || password === "" || repassword ==="" || tagname === "";
   const display = isInvalid ? "none" : "flex";
   const handleSignup = () => {
       if(password !== repassword) {
@@ -43,6 +44,12 @@ function Register({ navigation })
                         >
                         </TextInput>
                         <TextInput 
+                            style={[Haladie.input, Haladie.username]}
+                            onChangeText={(text) => setTagname(text)}
+                            placeholder='Tagname' 
+                            placeholderTextColor = '#808080'
+                        ></TextInput>
+                        <TextInput 
                             style={[Haladie.input, Haladie.password]}
                             placeholder='Mật khẩu'
                             secureTextEntry={true}
@@ -68,7 +75,7 @@ function Register({ navigation })
                         <Text style={Haladie.txtLogin}>Đăng Kí</Text>
                     </TouchableOpacity>
                     <Text style={Haladie.txtregis}
-                        onPress={() => navigation.navigate('Login')}
+                        onPress={() => props.navigation.navigate('Login')}
                     >Đã có tài khoản? Đăng nhập ngay</Text>
                 </View>
                 <View style={Haladie.view3}
@@ -84,7 +91,8 @@ function Register({ navigation })
 //Style - Like CSS bro :)
 const Haladie = StyleSheet.create({
 all: {
-    width: '100%',
+    width: windowWidth,
+    height: windowHeight,
     flex: 1,
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -92,7 +100,9 @@ all: {
 },
 all1: {
     flex: 1,
-    width: '90%',
+    
+    width: windowWidth*0.9,
+    height: windowHeight,
     justifyContent: 'space-between',
     alignItems: 'stretch',
 },

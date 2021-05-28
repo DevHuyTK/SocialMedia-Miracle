@@ -54,7 +54,6 @@ export default function Navigation() {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Signup" component={Signup} />
         <Stack.Screen name="Signup2" component={Signup2} />
         <Stack.Screen name="Home" component={Home} />
       </Stack.Navigator>
