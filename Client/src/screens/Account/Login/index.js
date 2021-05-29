@@ -5,7 +5,7 @@ import {View, Text, StyleSheet, TextInput,
 import { connect } from 'react-redux'
 import * as accActions from "../../../store/Actions/AccountActions"
 
-import callAPI from "../../fetchAPIs/AccountAPI/loginAccount"
+import callAPI from "../../../fetchAPIs/AccountAPI/loginAccount"
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 //This's what u see (_ _")
