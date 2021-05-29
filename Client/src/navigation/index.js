@@ -9,6 +9,8 @@ import Login from '../screens/Login';
 import Message from '../screens/Home/Message';
 import Community from '../screens/Home/Community';
 import Personal from '../screens/Home/Personal';
+import Account from '../screens/Home/Account';
+import Search from '../screens/Search'
 
 const Stack = createStackNavigator();
 
@@ -45,6 +47,16 @@ function Home() {
           ),
         }}
       />
+      <Tab.Screen
+        name="Account"
+        component={Account}
+        options={{
+          tabBarLabel: 'Account',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name="menu" color={color} size={size} />
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 }
@@ -57,6 +69,7 @@ export default function Navigation() {
         <Stack.Screen name="Signup" component={Signup} />
         <Stack.Screen name="Signup2" component={Signup2} />
         <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Search" component={Search} />
       </Stack.Navigator>
     </NavigationContainer>
   );

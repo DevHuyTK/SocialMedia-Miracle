@@ -1,9 +1,11 @@
 import React from 'react';
 import { View, Text } from 'react-native';
+import Header from '../../../Components/Header';
 
-function Community() {
+function Community({ navigation }) {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <View style={{ flex: 1 }}>
+      <Header onNavigation={navigation} />
       <Text>Community</Text>
     </View>
   );
