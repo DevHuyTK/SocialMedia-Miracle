@@ -3,9 +3,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { FontAwesome, MaterialIcons } from 'react-native-vector-icons';
-import Signup from '../screens/Signup';
-import Signup2 from '../screens/Signup-Step2';
-import Login from '../screens/Login';
+import Signup from '../screens/Account/Signup/index';
+import Signup2 from '../screens/Account/Signup-Step2';
+import Login from '../screens/Account/Login';
 import Message from '../screens/Home/Message';
 import Community from '../screens/Home/Community';
 import Personal from '../screens/Home/Personal';
@@ -66,7 +66,6 @@ export default function Navigation() {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Signup" component={Signup} />
         <Stack.Screen name="Signup2" component={Signup2} />
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Search" component={Search} />

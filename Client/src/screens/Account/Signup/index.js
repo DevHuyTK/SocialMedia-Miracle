@@ -9,20 +9,10 @@ import * as accActions from "../../../store/Actions/AccountActions"
 function Register({ navigation })
 {
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [repassword, setRepassword] = useState('');
-  const isInvalid = email === "" || password === "" || repassword ==="";
+  const [name, setName] = useState('');
+  const [tagname, setTagname] = useState('');
+  const isInvalid = name === "" || tagname === "";
   const display = isInvalid ? "none" : "flex";
-  const handleSignup = () => {
-      if(password !== repassword) {
-          return Alert.alert('Nhập lại mật khẩu không đúng');
-      }
-      else 
-      {
-          return Alert.alert('Đăng kí thành công!');
-      }
-  }
 
   return (
      
@@ -36,37 +26,30 @@ function Register({ navigation })
                 <View style={Haladie.view4} ></View>
                 <View style={Haladie.view1}>
                         <TextInput 
-                            style={[Haladie.input, Haladie.username]}
-                            onChangeText={(text) => setEmail(text)}
-                            placeholder='Email' 
-                            placeholderTextColor = '#808080'
+                        style={[Haladie.input, Haladie.username]}
+                        onChangeText={(text) => setName(text)}
+                        placeholder='Họ và tên' 
+                        placeholderTextColor = '#808080'
                         >
                         </TextInput>
                         <TextInput 
-                            style={[Haladie.input, Haladie.password]}
-                            placeholder='Mật khẩu'
-                            secureTextEntry={true}
-                            onChangeText={(text) => setPassword(text)}
-                            placeholderTextColor = '#808080'
+                        style={[Haladie.input, Haladie.password]}
+                        placeholder='Tagname'
+                        onChangeText={(text) => setTagname(text)}
+                        placeholderTextColor = '#808080'
                         >
                         </TextInput>
-                        <TextInput 
-                            style={[Haladie.input, Haladie.password]}
-                            placeholder='Nhập lại mật khẩu'
-                            secureTextEntry={true}
-                            onChangeText={(text) => setRepassword(text)}
-                            placeholderTextColor = '#808080'
-                        >
-                        </TextInput>
-
+                        <Text style={Haladie.txtfg}></Text>
                 </View>
                 <View style={Haladie.view2}>  
-                    <TouchableOpacity
-                        style={[Haladie.btLogin, {display}]} 
-                        onPress={handleSignup}
-                    >
-                        <Text style={Haladie.txtLogin}>Đăng Kí</Text>
-                    </TouchableOpacity>
+                    <View>
+                        <TouchableOpacity
+                            style={[Haladie.btLogin, {display}]}
+                            onPress={() => navigation.navigate('Signup2')}
+                        >
+                            <Text style={Haladie.txtLogin}>Tiếp Tục</Text>
+                        </TouchableOpacity>
+                    </View>
                     <Text style={Haladie.txtregis}
                         onPress={() => navigation.navigate('Login')}
                     >Đã có tài khoản? Đăng nhập ngay</Text>

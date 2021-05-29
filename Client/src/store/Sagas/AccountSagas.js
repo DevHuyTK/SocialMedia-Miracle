@@ -132,12 +132,12 @@ function* singInAccount(action) {
                 refreshToken: res.refreshToken
             }
         })
-        yield put ({
-            type: types.GET_ACCOUNT_REQUEST,
-            payload: {
-                accData: res.data
-            }
-        })
+        // yield put ({
+        //     type: types.GET_ACCOUNT_REQUEST,
+        //     payload: {
+        //         accData: res.data
+        //     }
+        // })
     }
     catch (error) {
         yield put({

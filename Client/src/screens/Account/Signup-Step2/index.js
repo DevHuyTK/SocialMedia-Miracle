@@ -1,23 +1,34 @@
 //Library - Of course!
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, TextInput, Image,
-    TouchableOpacity, Alert, ImageBackground} from 'react-native';
+import {View, Text, StyleSheet, TextInput,
+    TouchableOpacity, Alert, ImageBackground, Dimensions} from 'react-native';
 import { connect } from 'react-redux'
-import * as accActions from "../../store/Actions/AccountActions"
-
+import * as accActions from "../../../store/Actions/AccountActions"
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 //This's what u see (_ _")
 function Register({ navigation })
 {
-
-  const [name, setName] = useState('');
   const [tagname, setTagname] = useState('');
-  const isInvalid = name === "" || tagname === "";
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [repassword, setRepassword] = useState('');
+  const isInvalid = email === "" || password === "" || repassword ==="" || tagname === "";
   const display = isInvalid ? "none" : "flex";
+  const handleSignup = () => {
+      if(password !== repassword) {
+          return Alert.alert('Nhập lại mật khẩu không đúng');
+      }
+      else 
+      {
+          return Alert.alert('Đăng kí thành công!');
+      }
+  }
 
   return (
      
     <ImageBackground 
-        source={require('../../images/Backrgorund.png')}
+        source={require('../../../images/Backrgorund.png')}
         style={Haladie.all}
         blurRadius={3}
     >
@@ -26,32 +37,45 @@ function Register({ navigation })
                 <View style={Haladie.view4} ></View>
                 <View style={Haladie.view1}>
                         <TextInput 
-                        style={[Haladie.input, Haladie.username]}
-                        onChangeText={(text) => setName(text)}
-                        placeholder='Họ và tên' 
-                        placeholderTextColor = '#808080'
+                            style={[Haladie.input, Haladie.username]}
+                            onChangeText={(text) => setEmail(text)}
+                            placeholder='Email' 
+                            placeholderTextColor = '#808080'
                         >
                         </TextInput>
                         <TextInput 
-                        style={[Haladie.input, Haladie.password]}
-                        placeholder='Tagname'
-                        onChangeText={(text) => setTagname(text)}
-                        placeholderTextColor = '#808080'
+                            style={[Haladie.input, Haladie.username]}
+                            onChangeText={(text) => setTagname(text)}
+                            placeholder='Tagname' 
+                            placeholderTextColor = '#808080'
+                        ></TextInput>
+                        <TextInput 
+                            style={[Haladie.input, Haladie.password]}
+                            placeholder='Mật khẩu'
+                            secureTextEntry={true}
+                            onChangeText={(text) => setPassword(text)}
+                            placeholderTextColor = '#808080'
                         >
                         </TextInput>
-                        <Text style={Haladie.txtfg}></Text>
+                        <TextInput 
+                            style={[Haladie.input, Haladie.password]}
+                            placeholder='Nhập lại mật khẩu'
+                            secureTextEntry={true}
+                            onChangeText={(text) => setRepassword(text)}
+                            placeholderTextColor = '#808080'
+                        >
+                        </TextInput>
+
                 </View>
                 <View style={Haladie.view2}>  
-                    <View>
-                        <TouchableOpacity
-                            style={[Haladie.btLogin, {display}]}
-                            onPress={() => navigation.navigate('Signup2')}
-                        >
-                            <Text style={Haladie.txtLogin}>Tiếp Tục</Text>
-                        </TouchableOpacity>
-                    </View>
+                    <TouchableOpacity
+                        style={[Haladie.btLogin, {display}]} 
+                        onPress={handleSignup}
+                    >
+                        <Text style={Haladie.txtLogin}>Đăng Kí</Text>
+                    </TouchableOpacity>
                     <Text style={Haladie.txtregis}
-                        onPress={() => navigation.navigate('Login')}
+                        onPress={() => props.navigation.navigate('Login')}
                     >Đã có tài khoản? Đăng nhập ngay</Text>
                 </View>
                 <View style={Haladie.view3}
@@ -67,7 +91,8 @@ function Register({ navigation })
 //Style - Like CSS bro :)
 const Haladie = StyleSheet.create({
 all: {
-    width: '100%',
+    width: windowWidth,
+    height: windowHeight,
     flex: 1,
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -75,7 +100,9 @@ all: {
 },
 all1: {
     flex: 1,
-    width: '90%',
+    
+    width: windowWidth*0.9,
+    height: windowHeight,
     justifyContent: 'space-between',
     alignItems: 'stretch',
 },
