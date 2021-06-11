@@ -7,7 +7,6 @@ export const registerValidation = (data) => {
         tagname: Joi.string().min(4).required(),
         email: Joi.string().min(6).required().email(),
         password: Joi.string().min(6).required(),
-        age: Joi.number().required()
     });
     return schema.validate(data);
 }

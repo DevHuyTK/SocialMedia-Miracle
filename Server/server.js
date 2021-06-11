@@ -2,7 +2,6 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cors from 'cors';
-import bodyParser from 'body-parser';
 
 //Import Routes
 import AccountRouters from './api/routers/AccountRouters.js'
@@ -31,7 +30,5 @@ app.use(express.json());
 app.use('/post', postRoute);
 AccountRouters(app)
 app.use(cors());
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
 
 app.listen(port, () => console.log('Server Up and Running in port: ' + port));

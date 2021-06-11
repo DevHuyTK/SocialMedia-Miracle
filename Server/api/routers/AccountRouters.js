@@ -11,6 +11,9 @@ export default function (app) {
     app.route('/user/login')
         .post(UserController.login)
 
+    app.route('/user/checkValidLogin')
+        .post(UserController.checkValidLogin)
+
     app.route('/user/logout')
         .post(UserController.logout)
 
@@ -26,8 +29,5 @@ export default function (app) {
 
     app.route("/user/checkEmail")
         .post(UserController.checkEmail)
-    
-    app.route('/user/checkTagName')
-        .post(UserController.checkTagName)
         
 };
