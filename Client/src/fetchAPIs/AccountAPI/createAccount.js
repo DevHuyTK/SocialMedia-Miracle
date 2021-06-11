@@ -1,4 +1,5 @@
 export default function callAPI(data) {
+  console.log(data)
   return new Promise((resolve, reject) => {
     const url = `http://192.168.0.102:3000/user/register`;
     fetch(url, {

@@ -5,27 +5,28 @@ import {
   Text,
   StyleSheet,
   TextInput,
-  Image,
   TouchableOpacity,
   Alert,
   ImageBackground,
+  Dimensions,
 } from 'react-native';
 import { connect } from 'react-redux';
 import * as accActions from '../../../store/Actions/AccountActions';
-
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 //This's what u see (_ _")
 function Register(props) {
+  const [name, setName] = useState('');
+  const [tagname, setTagname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [repassword, setRepassword] = useState('');
-  const isInvalid = email === '' || password === '' || repassword === '';
+  const isInvalid = email === '' || password === '' || repassword === '' || tagname === '';
   const display = isInvalid ? 'none' : 'flex';
 
-  console.log(props.UserName, "Name");
-  
   const checkEmail = () => {
     new Promise((resolve, reject) => {
-      const url = `http://192.168.0.102:3000/user/checkTagName`;
+      const url = `http://192.168.0.102:3000/user/checkEmail`;
       fetch(url, {
         headers: { 'Content-type': 'Application/json' },
         method: 'POST',
@@ -33,13 +34,9 @@ function Register(props) {
           email: email,
         }),
       })
-        //.then((response) => response.json())
-        .then((response) => response.json())
         .then((res) => {
           // console.log(res)
           resolve(res);
-          props.navigation.navigate('Login');
-          return Alert.alert('Đăng kí tài khoản thành công!!');
         })
         .catch((error) => {
           reject(error);
@@ -47,18 +44,39 @@ function Register(props) {
         });
     });
   };
-
-  const handleSignup = () => {
-    if (password !== repassword) {
-      return Alert.alert('Nhập lại mật khẩu không đúng');
+  const isEmail = () => {
+    let regEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if(!regEmail.test(email)){
+      return Alert.alert('Hay nhap dia chi email hop le.\nExample@gmail.com');
     }
+  }
+  
+  const handleSignup = () => {
     checkEmail();
     props.registerAccount({
-      name: props.UserName,
-      tagname: props.TagName,
+      name: name,
+      tagname: tagname,
       email: email,
       password: password,
     });
+    isEmail();
+    if (password !== repassword) {
+      return Alert.alert('Nhập lại mật khẩu không đúng');
+    }
+    
+    if (tagname.length < 4) {
+      return Alert.alert('TagName it nhat phai co 4 ki tu');
+    }
+    if (name.length < 4) {
+      return Alert.alert('Name it nhat phai co 6 ki tu');
+    }
+    if (password.length < 6) {
+      return Alert.alert('Password it nhat phai co 6 ki tu');
+    } 
+    else {
+      props.navigation.navigate('Login');
+      return Alert.alert('Đăng kí tài khoản thành công!!');
+    }
   };
 
   return (
@@ -78,15 +96,27 @@ function Register(props) {
               placeholderTextColor="#808080"
             ></TextInput>
             <TextInput
+              style={[Haladie.input, Haladie.username]}
+              onChangeText={(text) => setName(text)}
+              placeholder="Your full name"
+              placeholderTextColor="#808080"
+            ></TextInput>
+            <TextInput
+              style={[Haladie.input, Haladie.username]}
+              onChangeText={(text) => setTagname(text)}
+              placeholder="Your Tagname"
+              placeholderTextColor="#808080"
+            ></TextInput>
+            <TextInput
               style={[Haladie.input, Haladie.password]}
-              placeholder="Mật khẩu"
+              placeholder="Password"
               secureTextEntry={true}
               onChangeText={(text) => setPassword(text)}
               placeholderTextColor="#808080"
             ></TextInput>
             <TextInput
               style={[Haladie.input, Haladie.password]}
-              placeholder="Nhập lại mật khẩu"
+              placeholder="Re Password"
               secureTextEntry={true}
               onChangeText={(text) => setRepassword(text)}
               placeholderTextColor="#808080"
@@ -96,7 +126,7 @@ function Register(props) {
             <TouchableOpacity style={[Haladie.btLogin, { display }]} onPress={handleSignup}>
               <Text style={Haladie.txtLogin}>Đăng Kí</Text>
             </TouchableOpacity>
-            <Text style={Haladie.txtregis} onPress={() => navigation.navigate('Login')}>
+            <Text style={Haladie.txtregis} onPress={() => props.navigation.navigate('Login')}>
               Đã có tài khoản? Đăng nhập ngay
             </Text>
           </View>
@@ -112,7 +142,8 @@ function Register(props) {
 //Style - Like CSS bro :)
 const Haladie = StyleSheet.create({
   all: {
-    width: '100%',
+    width: windowWidth,
+    height: windowHeight,
     flex: 1,
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -120,7 +151,9 @@ const Haladie = StyleSheet.create({
   },
   all1: {
     flex: 1,
-    width: '90%',
+
+    width: windowWidth * 0.9,
+    height: windowHeight,
     justifyContent: 'space-between',
     alignItems: 'stretch',
   },

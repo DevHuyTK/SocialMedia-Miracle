@@ -86,7 +86,7 @@ function Login(props) {
             <TouchableOpacity style={Haladie.btLogin} onPress={handleLogin}>
               <Text style={Haladie.txtLogin}>Đăng nhập</Text>
             </TouchableOpacity>
-            <Text style={Haladie.txtregis} onPress={() => props.navigation.navigate('Signup')}>
+            <Text style={Haladie.txtregis} onPress={() => props.navigation.navigate('Signup2')}>
               Chưa có tài khoản? Đăng kí ngay
             </Text>
           </View>
