@@ -26,7 +26,8 @@ const userSchema = new mongoose.Schema({
         max:1024
     },
     age:{
-        type: Number
+        type: Number,
+        default: 0
     },
     date:{
         type: Date,

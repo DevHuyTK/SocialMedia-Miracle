@@ -16,15 +16,15 @@ export const createUser = async (req, res) => {
   if (emailExist) return res.status(400).send('Email already exists');
 
   //Hash the passwords
-  // const salt = await bcrypt.genSalt(10);
-  // const hashedPassword = await bcrypt.hash(req.body.password, salt);
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
   //Create new User
   const user = new User({
     name: req.body.name,
     tagname: req.body.tagname,
     email: req.body.email,
-    password: req.body.password,
+    password: hashedPassword,
     age: req.body.age,
     avatar: req.body.avatar
   });
@@ -47,8 +47,7 @@ export const login = async (req, res) => {
   if (!user) return res.status(400).send('Email is not found');
 
   //Password is correct
-  // const validPass = await bcrypt.compare(req.body.password, user.password);
-  const validPass = await User.findOne({ password: req.body.password });
+  const validPass = await bcrypt.compare(req.body.password, user.password);
   if (!validPass) return res.status(400).send('Invalid password');
 
   //Create and assgin a token
@@ -66,6 +65,29 @@ export const logout = (req, res) => {
   const refreshToken = req.body.token;
   refreshTokens = refreshTokens.filter((refToken) => refToken !== refreshToken);
   res.sendStatus(200).send('Logout success!!');
+};
+
+//CHECK VALID LOGIN
+export const checkValidLogin = async (req, res) => {
+  //VALIDATE THE DATA BEFORE A USER
+  const { error } = loginValidation(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
+
+  //Checking if email exist
+  const user = await User.findOne({ email: req.body.email });
+  if (!user) return res.status(400).send('Email is not found');
+
+  //Password is correct
+  const validPass = await bcrypt.compare(req.body.password, user.password);
+  if (!validPass) return res.status(400).send('Invalid password');
+
+  //Create and assgin a token
+  const accessToken = jwt.sign({ _id: user._id }, process.env.ACCESS_TOKEN_SECRET, {
+    expiresIn: '60s',
+  });
+  const refreshToken = jwt.sign({ _id: user._id }, process.env.REFRESH_TOKEN_SECRET);
+  refreshTokens.push(refreshToken);
+  res.json({ accessToken, refreshToken });
 };
 
 //REFRESH TOKEN
@@ -126,10 +148,12 @@ export const deleteUserAdmin = async (req, res) => {
 export const checkEmail = async (req, res) => {
   const user = await User.findOne({ email: req.body.email });
   if (user) return res.status(400).send('Email already exists!! Try again');
+  res.json({message: 'Check email OK!'})
 }
 
 //CHECK TAG NAME EXIST
 export const checkTagName = async (req, res) => {
   const user = await User.findOne({ tagname: req.body.tagname });
   if (user) return res.status(400).send('TagName already exists!! Try again');
+  res.json({message: 'Check tagname OK!'})
 }
