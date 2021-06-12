@@ -10,7 +10,7 @@ import Community from '../screens/Home/Community';
 import Personal from '../screens/Home/Personal';
 import Account from '../screens/Home/Account';
 import Search from '../screens/Search'
-
+import AccountDetails from '../screens/Home/AccountDetail';
 const Stack = createStackNavigator();
 
 const Tab = createBottomTabNavigator();
@@ -64,10 +64,12 @@ export default function Navigation() {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
+        
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Signup2" component={Signup2} />
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Search" component={Search} />
+        <Stack.Screen name="AccDetail" component={AccountDetails} />
       </Stack.Navigator>
     </NavigationContainer>
   );
