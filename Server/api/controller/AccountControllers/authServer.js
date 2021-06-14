@@ -60,7 +60,7 @@ export const login = async (req, res) => {
 };
 
 //LOGOUT
-export const logout = (req, res) => {
+export const logout = (req, res) => { 
   //Remove assgin token
   const refreshToken = req.body.token;
   refreshTokens = refreshTokens.filter((refToken) => refToken !== refreshToken);
@@ -125,6 +125,18 @@ export const getUsers = (req, res) => {
   });
 };
 
+//GET ONE USER
+export const getOneUser = async(req, res) => {
+  const id = req.params.id;
+  const info = await User.findById(id, function (err, docs) {
+    if (err){
+        res.send(err)
+    }
+    else{
+        res.json(docs);
+    }})
+};
+
 
 //PUT INFO USER
 export const updateUser = async (req, res) => {
@@ -134,13 +146,13 @@ export const updateUser = async (req, res) => {
 
 //DELETE USER(ROLE: MEMBER)
 export const deleteUser = async (req, res) => {
-  const info = await User.findOneAndUpdate(req.params._id, {active: false})
+  const info = await User.findOneAndUpdate(req.params.id, {active: false})
   res.json({message: 'Delete User Success', info})
 }
 
 //DELETE USER(ROLE: ADMIN)
 export const deleteUserAdmin = async (req, res) => {
-  const info = await User.findOneAndDelete(req.params._id)
+  const info = await User.findOneAndDelete(req.params.id)
   res.json({message: 'ADMIN Delete User Success'})
 }
 

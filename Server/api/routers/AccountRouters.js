@@ -19,8 +19,9 @@ export default function (app) {
 
     app.route('/user/refreshToken')
         .post(UserController.refreshToken)
-
+    
     app.route("/user/:id")
+        .get(UserController.getOneUser)
         .put(UserController.updateUser)
 
     app.route('/user/delete/:id')
