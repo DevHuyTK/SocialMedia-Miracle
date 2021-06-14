@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import * as accActions from '../../../store/Actions/AccountActions';
+import {DOMAIN} from '../../../store/constant'
 
 //This's what u see (_ _")
 function Login(props) {
@@ -19,7 +20,7 @@ function Login(props) {
 
   const fetchLogin = () => {
     new Promise((resolve, reject) => {
-      const url = `http://192.168.1.111:3000/user/checkValidLogin`;
+      const url = `${DOMAIN}/user/checkValidLogin`;
       fetch(url, {
         headers: { 'Content-type': 'Application/json' },
         method: 'POST',
@@ -43,17 +44,20 @@ function Login(props) {
   };
 
   const handleLogin = () => {
-    fetchLogin();
-    props.singInAccount({
-      email: email,
-      password: password,
-    });
+    
     if (email.trim() === '') {
       return Alert.alert('Bạn chưa nhập tên tài khoản');
     }
 
     if (password.trim() === '') {
       return Alert.alert('Bạn chưa nhập mật khẩu');
+    }
+    else{
+      fetchLogin();
+      props.singInAccount({
+      email: email,
+      password: password,
+    });
     }
   };
   LogBox.ignoreAllLogs(true);

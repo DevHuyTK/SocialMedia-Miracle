@@ -6,6 +6,7 @@ import userDeleteAccount from '../../fetchAPIs/AccountAPI/userDeleteAccount';
 import adminDeleteAccount from '../../fetchAPIs/AccountAPI/adminDeleteAccount';
 import loginAccount from '../../fetchAPIs/AccountAPI/loginAccount';
 import * as types from '../constant';
+import { AsyncStorage } from 'react-native';
 
 function* getAllAccounts(action) {
   try {
@@ -119,13 +120,38 @@ function* DeleteAccountByAdmin(action) {
 function* singInAccount(action) {
   try {
     const res = yield loginAccount(action.payload);
-    yield put({
-      type: types.LOGIN_ACCOUNT_SUCCESS,
-      payload: {
-        accessToken: res.accessToken,
-        refreshToken: res.refreshToken,
-      },
-    });
+    if (!res.error) {
+      yield AsyncStorage.setItem(
+        'info',
+        JSON.stringify({
+          id: res.id,
+          name: res.name,
+          tagname: res.tagname,
+          avatar: res.avatar,
+          accessToken: res.accessToken,
+          refreshToken: res.refreshToken,
+        }),
+      );
+      let data = yield AsyncStorage.getItem('info');
+      if (data !== null) {
+        console.log(JSON.parse(data).name);
+      }
+      yield put({
+        type: types.LOGIN_ACCOUNT_SUCCESS,
+        payload: {
+          id: res.id,
+          name: res.name,
+          tagname: res.tagname,
+          avatar: res.avatar,
+          accessToken: res.accessToken,
+          refreshToken: res.refreshToken,
+        },
+      });
+    } else {
+      console.log('sagaAcc res.error: ', res.error);
+      throw res.error;
+    }
+
     // yield put ({
     //     type: types.GET_ACCOUNT_REQUEST,
     //     payload: {
