@@ -26,7 +26,7 @@ function Register(props) {
 
   const checkEmail = () => {
     new Promise((resolve, reject) => {
-      const url = `http://192.168.0.102:3000/user/checkEmail`;
+      const url = `http://192.168.1.111:3000/user/checkEmail`;
       fetch(url, {
         headers: { 'Content-type': 'Application/json' },
         method: 'POST',
@@ -161,7 +161,7 @@ const Haladie = StyleSheet.create({
     flex: 2,
   },
   view1: {
-    flex: 1,
+    flex: 2,
     justifyContent: 'space-around',
     alignItems: 'stretch',
   },

@@ -28,7 +28,7 @@ function Account({ navigation }) {
       <Header onNavigation={navigation} />
       <ScrollView showsVerticalScrollIndicator={false}>
         <TouchableOpacity
-          onPress={() => navigation.navigate('Personal')}
+          onPress={() => navigation.navigate('AccDetail')}
           activeOpacity={0.5}
           style={{
             backgroundColor: '#fff',

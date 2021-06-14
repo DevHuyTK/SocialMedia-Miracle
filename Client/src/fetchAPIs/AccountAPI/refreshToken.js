@@ -1,6 +1,6 @@
 export default function callAPI(data) {
   return new Promise((resolve, reject) => {
-    const url = `http://localhost:3000/user/refreshToken`;
+    const url = `http://192.168.1.111:3000/user/refreshToken`;
     fetch(url, {
       headers: { 'Content-type': 'Application/json' },
       method: 'POST',

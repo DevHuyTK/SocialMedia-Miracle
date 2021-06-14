@@ -19,7 +19,7 @@ function Login(props) {
 
   const fetchLogin = () => {
     new Promise((resolve, reject) => {
-      const url = `http://192.168.0.102:3000/user/checkValidLogin`;
+      const url = `http://192.168.1.111:3000/user/checkValidLogin`;
       fetch(url, {
         headers: { 'Content-type': 'Application/json' },
         method: 'POST',
