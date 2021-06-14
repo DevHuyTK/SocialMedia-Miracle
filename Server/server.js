@@ -2,6 +2,8 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cors from 'cors';
+// import fileUpload from 'express-fileupload';
+// import path from 'path';
 
 //Import Routes
 import AccountRouters from './api/routers/AccountRouters.js'
@@ -12,7 +14,7 @@ const app = express();
 
 const port = process.env.PORT;
 
-//Connet to MongoDB
+//Connect to MongoDB
 mongoose.Promise = global.Promise;
 mongoose
   .connect(process.env.DB_CONNECT, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -25,6 +27,11 @@ mongoose
 
 //Middleware
 app.use(express.json());
+app.use(fileUpload({
+  useTempFiles: true,
+  tempFileDir: '/tmp/'
+}));
+app.use(express.static(path.join('public/images')));
 
 //Router Middlewares
 app.use('/post', postRoute);

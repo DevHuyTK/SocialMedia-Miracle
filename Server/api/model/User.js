@@ -38,8 +38,8 @@ const userSchema = new mongoose.Schema({
         default: true
     },
     avatar:{
-        type: String,
-        default: ''
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Img'
     },
     role:{
         type:String,

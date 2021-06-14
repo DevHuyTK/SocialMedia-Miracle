@@ -44,6 +44,7 @@ export const login = async (req, res) => {
 
   //Checking if email exist
   const user = await User.findOne({ email: req.body.email });
+  const userData = await User.findById(user._id,{__v:0},{populate:'avatar'})
   if (!user) return res.status(400).send('Email is not found');
 
   //Password is correct
@@ -56,7 +57,8 @@ export const login = async (req, res) => {
   });
   const refreshToken = jwt.sign({ _id: user._id }, process.env.REFRESH_TOKEN_SECRET);
   refreshTokens.push(refreshToken);
-  res.json({ accessToken, refreshToken });
+  res.json({ accessToken, refreshToken, id: user._id, name: user.name, tagname: user.tagname, 
+    avatar: userData.avatar? userData.avatar.imgURL: ''});
 };
 
 //LOGOUT
@@ -87,7 +89,7 @@ export const checkValidLogin = async (req, res) => {
   });
   const refreshToken = jwt.sign({ _id: user._id }, process.env.REFRESH_TOKEN_SECRET);
   refreshTokens.push(refreshToken);
-  res.json({ accessToken, refreshToken });
+  res.json({ accessToken, refreshToken});
 };
 
 //REFRESH TOKEN
