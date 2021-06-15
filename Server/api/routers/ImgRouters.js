@@ -1,11 +1,14 @@
-import * as UploadPhoto from '../controller/Upload/UploadImg.js'
+import * as UploadPhoto from '../controller/UploadImages/UploadImg.js'
 
 export default function (app) {
     
-    app.route("/user/photos")
-    .get(UploadPhoto.uploadPhoto)
+    app.route("/img/photos")
+    .get(UploadPhoto.getPhotos)
 
-    app.route("/user/photo")
+    app.route("/img/photo")
     .post(UploadPhoto.uploadPhoto)
+    
+    app.route("/img/photo/:id")
+    .post(UploadPhoto.getOnePhoto)
     
 }

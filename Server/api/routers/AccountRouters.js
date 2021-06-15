@@ -1,5 +1,4 @@
 import * as UserController from '../controller/AccountControllers/authServer.js'
-import * as UploadPhoto from '../controller/UploadImages/UploadImg.js'
 
 export default function (app) {
     //Account Routes

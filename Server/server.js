@@ -2,8 +2,8 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cors from 'cors';
-// import fileUpload from 'express-fileupload';
-// import path from 'path';
+import fileUpload from 'express-fileupload';
+import path from 'path';
 
 //Import Routes
 import AccountRouters from './api/routers/AccountRouters.js'
