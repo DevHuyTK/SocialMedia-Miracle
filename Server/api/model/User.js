@@ -3,13 +3,13 @@ import mongoose from 'mongoose'
 const userSchema = new mongoose.Schema({
     name:{
         type: String,
-        default: '',
+        required: true,
         min:6,
         max:255
     },
     tagname:{
         type: String,
-        default: '',
+        required: true,
         min:4,
         max: 255
     },
@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema({
     },
     age:{
         type: Number,
-        default: null
+        default: 0
     },
     date:{
         type: Date,
@@ -38,8 +38,8 @@ const userSchema = new mongoose.Schema({
         default: true
     },
     avatar:{
-        type: String,
-        default: ''
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Img'
     },
     role:{
         type:String,

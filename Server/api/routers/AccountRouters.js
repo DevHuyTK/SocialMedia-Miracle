@@ -11,15 +11,24 @@ export default function (app) {
     app.route('/user/login')
         .post(UserController.login)
 
+    app.route('/user/checkValidLogin')
+        .post(UserController.checkValidLogin)
+
     app.route('/user/logout')
         .post(UserController.logout)
 
     app.route('/user/refreshToken')
         .post(UserController.refreshToken)
-
+    
     app.route("/user/:id")
+        .get(UserController.getOneUser)
         .put(UserController.updateUser)
+
+    app.route('/user/delete/:id')
         .put(UserController.deleteUser)
         .delete(UserController.deleteUserAdmin)
 
+    app.route("/user/checkEmail")
+        .post(UserController.checkEmail)
+        
 };

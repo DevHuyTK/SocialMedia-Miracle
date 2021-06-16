@@ -1,6 +1,7 @@
 
 import * as AccountController from '../controller/NewPostControllers/post.js'
 
+//Chua lam phan nay moi xay demo ti code thoi
 export default function (app) {
     //Account Routes
     app.route("/newsfeed")
