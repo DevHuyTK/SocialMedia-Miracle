@@ -3,8 +3,21 @@ import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import Header from '../../../Components/Header';
 import { Avatar, ListItem, Icon } from 'react-native-elements';
 import AccountItem from '../../../Components/AccountItem';
+import { AsyncStorage } from 'react-native';
+import {DOMAIN} from '../../../store/constant'
 
 function Account({ navigation }) {
+  const[data,setData]= React.useState({
+    "age": 0,
+    "avatar": "",
+    "email": "",
+    "name": "",
+    "role": "",
+    "tagname": "",
+  });
+  
+  console.log(data.role);
+  
   const setting = [
     {
       icon: 'settings',
@@ -38,12 +51,25 @@ function Account({ navigation }) {
           }}
         >
           <View style={{ width: '35%', justifyContent: 'center', alignItems: 'center' }}>
+          {data.avatar?
+            <Avatar
+              size="large"
+              rounded
+              source={{
+                uri:
+                  `${DOMAIN}\img\photo\${}`,
+              }}
+            />
+            :
             <Avatar
               size="large"
               rounded
               icon={{ name: 'user', type: 'font-awesome' }}
               containerStyle={{ backgroundColor: 'gray' }}
             />
+            }
+            
+            
           </View>
           <View style={{ width: '65%', justifyContent: 'center' }}>
             <Text style={{ fontWeight: 'bold', fontSize: 20 }}>User name</Text>
@@ -74,7 +100,7 @@ function Account({ navigation }) {
             </>
           }
           isExpanded={false}
-          onPress={() => navigation.navigate('Login')}
+          onPress={() => handleLogout()}
         />
       </ScrollView>
     </View>

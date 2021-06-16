@@ -128,21 +128,17 @@ function* singInAccount(action) {
           name: res.name,
           tagname: res.tagname,
           avatar: res.avatar,
+          email: res.email,
+          age: res.age,
+          role: res.role,
           accessToken: res.accessToken,
           refreshToken: res.refreshToken,
         }),
       );
-      let data = yield AsyncStorage.getItem('info');
-      if (data !== null) {
-        console.log(JSON.parse(data).name);
-      }
       yield put({
         type: types.LOGIN_ACCOUNT_SUCCESS,
         payload: {
-          id: res.id,
-          name: res.name,
-          tagname: res.tagname,
-          avatar: res.avatar,
+          email: res.email,
           accessToken: res.accessToken,
           refreshToken: res.refreshToken,
         },

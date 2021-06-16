@@ -6,7 +6,7 @@ const DEFAULT_START = {
   error: false,
   errorMessage: null,
   accessToken: '',
-  refreshToken: '',
+  // refreshToken: '',
 };
 export default (state = DEFAULT_START, action) => {
   switch (action.type) {
@@ -103,7 +103,7 @@ export default (state = DEFAULT_START, action) => {
       return {
         ...state,
         accessToken: action.payload.accessToken,
-        refreshToken: action.payload.refreshToken,
+        // refreshToken: action.payload.refreshToken,
         isFetching: false,
         dataFetched: false,
         error: false,

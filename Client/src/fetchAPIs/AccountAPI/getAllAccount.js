@@ -1,6 +1,8 @@
+import {DOMAIN} from '../../store/constant'
+
 export default function callAPI(data) {
   return new Promise((resolve, reject) => {
-    const url = `http://192.168.1.111:3000/users`;
+    const url = `${DOMAIN}/users`;
     fetch(url, {
       method: 'GET',
     })
