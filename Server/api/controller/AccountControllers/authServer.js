@@ -2,11 +2,14 @@ import express from "express";
 import User from "../../model/User.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import {uploadPhoto} from "../UploadImages/UploadImg.js"
 import { registerValidation, loginValidation } from "../../../validation.js";
 
 let refreshTokens = [];
 
 export const createUser = async (req, res) => {
+	let _avatar = {}
+	try {
 	//VALIDATE THE DATA BEFORE A USER
 	const { error } = registerValidation(req.body);
 	if (error) return res.status(400).send(error.details[0].message);
@@ -20,15 +23,26 @@ export const createUser = async (req, res) => {
 	const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
 	//Create new User
+	if(req.body.avatar){
+		_avatar = await uploadPhoto(req.body.avatar)
+	}
 	const user = new User({
 		name: req.body.name,
 		tagname: req.body.tagname,
 		email: req.body.email,
 		password: hashedPassword,
-		age: req.body.age,
-		avatar: req.body.avatar,
+		age: req.body.age
 	});
-	try {
+	if(_avatar._id){
+		user = new User({
+			name: req.body.name,
+			tagname: req.body.tagname,
+			email: req.body.email,
+			password: hashedPassword,
+			age: req.body.age,
+			avatar: _avatar._id
+		});
+	}
 		const savedUser = await user.save();
 		res.send({ user: user._id });
 	} catch (error) {
@@ -178,9 +192,29 @@ export const getOneUser = async (req, res) => {
 	});
 };
 
-//PUT INFO USER
+//UPDATE INFO USER
 export const updateUser = async (req, res) => {
-	const info = await User.findOneAndUpdate(req.params.id, req.body);
+	if(req.body.avatar){
+		_avatar = await uploadPhoto(req.body.avatar)
+	}
+	const user = {
+		name: req.body.name,
+		tagname: req.body.tagname,
+		email: req.body.email,
+		password: hashedPassword,
+		age: req.body.age
+	};
+	if(_avatar._id){
+		user = {
+			name: req.body.name,
+			tagname: req.body.tagname,
+			email: req.body.email,
+			password: hashedPassword,
+			age: req.body.age,
+			avatar: _avatar._id
+		};
+	}
+	const info = await User.findOneAndUpdate(req.params.id, user);
 	res.json({ message: "Update Success", info });
 };
 

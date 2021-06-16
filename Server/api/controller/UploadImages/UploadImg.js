@@ -35,24 +35,14 @@ export const uploadImages = (req, res) => {
     }
 }
 
-//CREATE NEW SINGLE PHOTO
-export const uploadPhoto = (req, res) => {
-	var img = fs.readFileSync(req.file.path);
-	var encode_image = img.toString();
-	// Define a JSONobject for the image attributes for saving to database
+//CREATE NEW PHOTO
+export const uploadPhoto = async (imgReq) => {
 
-	var finalImg = {
-		contentType: req.file.mimetype,
-		image: encode_image,
-	};
-	ImgStore.insertOne(finalImg, (err, result) => {
-		console.log(result);
-
-		if (err) return console.log(err);
-
-		console.log("saved to database");
-		res.redirect("/");
+	var finalImg = new ImgStore({
+		imgURL: imgReq,
 	});
+	let result = await finalImg.save();
+    return result
 };
 
 //GET ALL PHOTOS
@@ -65,15 +55,3 @@ export const getPhotos = (req, res) => {
 		res.send(imgArray);
 	});
 };
-
-//GET ONE PHOTO
-export const getOnePhoto = (req, res) => {
-    var filename = req.params.id;
-     
-    ImgStore.findOne({'_id': ObjectId(filename) }, (err, result) => {
-      if (err) return console.log(err)
-      
-      res.contentType('image/jpeg');
-      res.send(result.image.buffer)
-    })
-  }

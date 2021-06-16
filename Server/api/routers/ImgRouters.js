@@ -6,9 +6,6 @@ export default function (app) {
     .get(UploadPhoto.getPhotos)
 
     app.route("/img/photo")
-    .post(UploadPhoto.uploadPhoto)
-    
-    app.route("/img/photo/:id")
-    .post(UploadPhoto.getOnePhoto)
+    .post(UploadPhoto.uploadImages)
     
 }
