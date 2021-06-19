@@ -12,6 +12,8 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import * as accActions from '../../../store/Actions/AccountActions';
+import {DOMAIN} from '../../../store/constant'
+
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 //This's what u see (_ _")
@@ -26,7 +28,7 @@ function Register(props) {
 
   const checkEmail = () => {
     new Promise((resolve, reject) => {
-      const url = `http://192.168.1.111:3000/user/checkEmail`;
+      const url = `${DOMAIN}/user/checkEmail`;
       fetch(url, {
         headers: { 'Content-type': 'Application/json' },
         method: 'POST',
