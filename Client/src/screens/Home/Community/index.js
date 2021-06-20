@@ -9,6 +9,9 @@ import {
   Image,
   CameraRoll,
 } from 'react-native';
+import { View, Text, FlatList, SafeAreaView } from 'react-native';
+import Header from '../../../Components/Header';
+import Post from '../../../Components/Post';
 import Header from '../../../Components/Header';
 import ImagePicker from 'react-native-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -17,7 +20,36 @@ import { DOMAIN } from '../../../store/constant';
 
 function Community(props) {
   const [image, setImage] = useState(null);
-
+  const data = [
+    {
+      id: '123',
+      userName: 'thang',
+      avatar: '',
+      image: '',
+      caption: 'test post',
+      likesCount: 11,
+      postAgo: '6 minute ago',
+    },
+    {
+      id: '456',
+      userName: 'doanh',
+      avatar: '',
+      image: '',
+      caption:
+        'test post test post test post test post test post test post test post test post test post',
+      likesCount: 11,
+      postAgo: '12 minute ago',
+    },
+    {
+      id: '789',
+      userName: 'huy',
+      avatar: '',
+      image: '',
+      caption: 'test post',
+      likesCount: 11,
+      postAgo: '30 minute ago',
+    },
+  ];
   const [data, setData] = useState({});
   const chooseImage = () => {
   
@@ -138,8 +170,16 @@ function Community(props) {
       <Button title="Pick an image from lib" onPress={chooseImage} />
       {/* {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />} */}
       <Button title="Upload Img" onPress={uploadImage} />
+      <SafeAreaView style={{ marginBottom: 90 }}>
+        <FlatList
+          data={data}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => <Post post={item} />}
+          showsVerticalScrollIndicator={false}
+        />
+      </SafeAreaView>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({

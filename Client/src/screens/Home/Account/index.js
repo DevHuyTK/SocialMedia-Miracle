@@ -19,11 +19,11 @@ function Account({ navigation }) {
   const setting = [
     {
       icon: 'settings',
-      title: 'setting',
+      title: 'Settings',
     },
     {
       icon: 'language',
-      title: 'Language',
+      title: 'Languages',
     },
   ];
 
@@ -52,13 +52,14 @@ function Account({ navigation }) {
   return (
     <View style={{ flex: 1 }}>
       <Header onNavigation={navigation} />
+      
       <ScrollView showsVerticalScrollIndicator={false}>
         <TouchableOpacity
           onPress={() => navigation.navigate('AccDetail')}
           activeOpacity={0.5}
           style={{
             backgroundColor: '#fff',
-            height: '20%',
+            height: '16%',
             width: '100%',
             flexDirection: 'row',
           }}
@@ -85,7 +86,7 @@ function Account({ navigation }) {
             
           </View>
           <View style={{ width: '65%', justifyContent: 'center' }}>
-            <Text style={{ fontWeight: 'bold', fontSize: 20 }}>User name</Text>
+            <Text style={{ fontWeight: 'bold', fontSize: 20 }}>Username</Text>
             <Text>Go to your personal page</Text>
           </View>
         </TouchableOpacity>
@@ -98,7 +99,7 @@ function Account({ navigation }) {
             marginBottom: 10,
           }}
         />
-        <AccountItem parentIcon="settings" parentTitle="Setting & Privacy" list={setting} />
+        <AccountItem parentIcon="settings" parentTitle="Settings & Privacy" list={setting} />
         <AccountItem parentIcon="help-outline" parentTitle="Help & Support" list={help} />
         <ListItem.Accordion
           noIcon={true}
@@ -108,12 +109,19 @@ function Account({ navigation }) {
             <>
               <Icon name="logout" size={30} />
               <ListItem.Content>
-                <ListItem.Title style={{ fontWeight: 'bold' }}>Logout</ListItem.Title>
+                <ListItem.Title style={{ fontWeight: 'bold' }}>Log out</ListItem.Title>
               </ListItem.Content>
             </>
           }
           isExpanded={false}
           onPress={() => handleLogout()}
+        />
+        <View
+          style={{
+            height: 20,
+            marginHorizontal: '10%',
+            marginBottom: 10,
+          }}
         />
       </ScrollView>
     </View>
