@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import Header from '../../../Components/Header';
 import { Avatar, ListItem, Icon } from 'react-native-elements';
 import AccountItem from '../../../Components/AccountItem';
-import { AsyncStorage } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {DOMAIN} from '../../../store/constant'
 
 function Account({ navigation }) {
@@ -15,8 +15,6 @@ function Account({ navigation }) {
     "role": "",
     "tagname": "",
   });
-  
-  console.log(data.role);
   
   const setting = [
     {
@@ -35,6 +33,21 @@ function Account({ navigation }) {
       title: 'Report problem',
     },
   ];
+  
+  const handleLogout = () => {
+    AsyncStorage.setItem(
+      'info',
+      JSON.stringify({
+        "age": 0,
+        "avatar": "",
+        "email": "",
+        "name": "",
+        "role": "",
+        "tagname": "",
+      }),
+    )
+      navigation.navigate("Login")
+  }
 
   return (
     <View style={{ flex: 1 }}>

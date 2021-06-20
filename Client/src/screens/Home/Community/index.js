@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import {
   View,
   Text,
@@ -6,30 +7,59 @@ import {
   StyleSheet,
   Button,
   Image,
-  CameraRoll,AsyncStorage
+  CameraRoll,
 } from 'react-native';
 import Header from '../../../Components/Header';
-import * as ImagePicker from 'expo-image-picker';
+import ImagePicker from 'react-native-image-picker';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { DOMAIN } from '../../../store/constant';
 
-function Community( props ) {
+function Community(props) {
   const [image, setImage] = useState(null);
-  const [makePhoto, setMakePhoto] = useState(null);
+
+  const [data, setData] = useState({});
+  const chooseImage = () => {
   
-  const [data, setData] = useState({
-    age: 0,
-    avatar: '',
-    email: '',
-    name: '',
-    role: '',
-    tagname: '',
-  });
+    let options = {
+      title: 'Select Image',
+      customButtons: [
+        { name: 'customOptionKey', title: 'Choose Photo from Custom Option' },
+      ],
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
+      },
+    };
+    ImagePicker.showImagePicker(options, (response) => {
+      console.log('Response = ', response);
+
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+        alert(response.customButton);
+      } else {
+        const source = { uri: response.uri };
+
+        // You can also display the image using data:
+        // const source = { uri: 'data:image/jpeg;base64,' + response.data };
+        // alert(JSON.stringify(response));s
+        console.log('response', JSON.stringify(response));
+      }
+    });
+}
+  
   useEffect(() => {
     async function fetchData() {
-      const data = await AsyncStorage.getItem('info');
-      let dataJson = JSON.parse(data);
-      return dataJson;
+      try {
+        const jsonValue = await AsyncStorage.getItem('info')
+        return jsonValue != null ? JSON.parse(jsonValue) : null;
+      } catch(e) {
+        console.log(e)
+      }
     }
     fetchData()
       .then((data) => setData(data))
@@ -44,36 +74,34 @@ function Community( props ) {
       // })
       .catch((error) => console.log(error));
   }, []);
-
-  // const uploadImage = async () => {
-  //   // Check if any file is selected or not
-  //   if (singleFile != null) {
-  //     // If file selected then create FormData
-  //     const fileToUpload = singleFile;
-  //     const data = new FormData();
-  //     data.append('name', 'Image Upload');
-  //     data.append('file_attachment', fileToUpload);
-  //     // Please change file upload URL
-  //     let res = await fetch(
-  //       'http://localhost/upload.php',
-  //       {
-  //         method: 'post',
-  //         body: data,
-  //         headers: {
-  //           'Content-Type': 'multipart/form-data; ',
-  //         },
-  //       }
-  //     );
-  //     let responseJson = await res.json();
-  //     if (responseJson.status == 1) {
-  //       alert('Upload Successful');
-  //     }
-  //   } else {
-  //     // If no file selected the show alert
-  //     alert('Please Select File first');
-  //   }
-  // };
   
+  // console.log("adads", props.loginData.token);
+  function uploadImage(data) {
+    console.log(data)
+    return new Promise((resolve, reject) => {
+      const fileToUpload = image;
+        const dataIMG = new FormData();
+        dataIMG.append('upload', fileToUpload);
+        console.log(dataIMG);
+      const url = `${DOMAIN}/img/photo`;
+      fetch(url, {
+        headers: { 'Authorization': `Bearer ${props.loginData.token}` },
+        method: 'POST',
+        body: dataIMG,
+      })
+        //.then((response) => response.json())
+        .then((response) => response.json())
+        .then((res) => {
+          //console.log(res)
+          resolve(res);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  }
+  
+
   useEffect(() => {
     (async () => {
       if (Platform.OS !== 'web') {
@@ -84,36 +112,22 @@ function Community( props ) {
       }
     })();
   }, []);
-  
+
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
+      // base64:true,
+      
     });
 
-    console.log(result);
+    console.log("ok",result);
 
     if (!result.cancelled) {
-      setImage(result.uri);
+      setImage(result);
     }
-  };
-
-  const takeImage = async () => {
-    let result = await ImagePicker.launchCameraAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-
-    console.log(result);
-
-    if (!result.cancelled) {
-      setMakePhoto(result.uri);
-    }
-    CameraRoll.saveToCameraRoll((await Expo.ImagePicker.launchCameraAsync({})).uri);
   };
 
   return (
@@ -121,10 +135,9 @@ function Community( props ) {
       <Header onNavigation={props.navigation} />
       <Text>Community</Text>
       <Text>{data.name}</Text>
-      <Button title="Pick an image from lib" onPress={pickImage} />
-      {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
-      <Button title="Take a photo" onPress={takeImage} />
-      {makePhoto && <Image source={{ uri: makePhoto }} style={{ width: 200, height: 200 }} />}
+      <Button title="Pick an image from lib" onPress={chooseImage} />
+      {/* {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />} */}
+      <Button title="Upload Img" onPress={uploadImage} />
     </View>
   );
 }
@@ -212,4 +225,17 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Community;
+const mapStateToProps = (state) => {
+  return {
+    loginData: state.account.loginData,
+  };
+};
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     getOneUser: () => {
+//       dispatch(actions.getOneAccount());
+//     },
+//   };
+// };
+
+export default connect(mapStateToProps)(Community);

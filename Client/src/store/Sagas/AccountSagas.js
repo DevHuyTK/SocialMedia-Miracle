@@ -6,7 +6,7 @@ import userDeleteAccount from '../../fetchAPIs/AccountAPI/userDeleteAccount';
 import adminDeleteAccount from '../../fetchAPIs/AccountAPI/adminDeleteAccount';
 import loginAccount from '../../fetchAPIs/AccountAPI/loginAccount';
 import * as types from '../constant';
-import { AsyncStorage } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function* getAllAccounts(action) {
   try {
@@ -124,6 +124,7 @@ function* singInAccount(action) {
       yield AsyncStorage.setItem(
         'info',
         JSON.stringify({
+          token: res.accessToken,
           id: res.id,
           name: res.name,
           tagname: res.tagname,
@@ -131,16 +132,15 @@ function* singInAccount(action) {
           email: res.email,
           age: res.age,
           role: res.role,
-          accessToken: res.accessToken,
-          refreshToken: res.refreshToken,
         }),
       );
       yield put({
         type: types.LOGIN_ACCOUNT_SUCCESS,
         payload: {
-          email: res.email,
-          accessToken: res.accessToken,
-          refreshToken: res.refreshToken,
+          loginData: {
+            id: res.id,
+            token: res.accessToken
+          }
         },
       });
     } else {

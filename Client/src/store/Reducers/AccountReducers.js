@@ -1,11 +1,12 @@
 import * as types from '../constant';
 const DEFAULT_START = {
   accData: [],
+  loginData: {},
   dataFetched: false,
   isFetching: false,
   error: false,
   errorMessage: null,
-  accessToken: '',
+  token: '',
   // refreshToken: '',
 };
 export default (state = DEFAULT_START, action) => {
@@ -102,12 +103,13 @@ export default (state = DEFAULT_START, action) => {
     case types.LOGIN_ACCOUNT_SUCCESS:
       return {
         ...state,
-        accessToken: action.payload.accessToken,
+        // token: action.payload.accessToken,
         // refreshToken: action.payload.refreshToken,
         isFetching: false,
         dataFetched: false,
         error: false,
         errorMessage: null,
+        loginData: action.payload.loginData
       };
     case types.LOGIN_ACCOUNT_FAILURE:
       return {
