@@ -30,8 +30,4 @@ export const LOGIN_ACCOUNT_REQUEST = 'LOGIN_ACCOUNT_REQUEST';
 export const LOGIN_ACCOUNT_SUCCESS = 'LOGIN_ACCOUNT_SUCCESS';
 export const LOGIN_ACCOUNT_FAILURE = 'LOGIN_ACCOUNT_FAILURE';
 
-<<<<<<< HEAD
-export const DOMAIN = 'http://192.168.1.39:3000'
-=======
-export const DOMAIN = 'http://192.168.90.103:3000'
->>>>>>> b50ce825d6ea015cb4a85de92dd3dfa92e729eea
+export const DOMAIN = 'http://192.168.1.7:3000';

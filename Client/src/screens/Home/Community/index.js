@@ -8,9 +8,9 @@ import {
   Button,
   Image,
   CameraRoll,
+  FlatList,
+  SafeAreaView,
 } from 'react-native';
-import { View, Text, FlatList, SafeAreaView } from 'react-native';
-import Header from '../../../Components/Header';
 import Post from '../../../Components/Post';
 import Header from '../../../Components/Header';
 import ImagePicker from 'react-native-image-picker';
@@ -50,14 +50,11 @@ function Community(props) {
       postAgo: '30 minute ago',
     },
   ];
-  const [data, setData] = useState({});
+  // const [data, setData] = useState({});
   const chooseImage = () => {
-  
     let options = {
       title: 'Select Image',
-      customButtons: [
-        { name: 'customOptionKey', title: 'Choose Photo from Custom Option' },
-      ],
+      customButtons: [{ name: 'customOptionKey', title: 'Choose Photo from Custom Option' }],
       storageOptions: {
         skipBackup: true,
         path: 'images',
@@ -82,15 +79,15 @@ function Community(props) {
         console.log('response', JSON.stringify(response));
       }
     });
-}
-  
+  };
+
   useEffect(() => {
     async function fetchData() {
       try {
-        const jsonValue = await AsyncStorage.getItem('info')
+        const jsonValue = await AsyncStorage.getItem('info');
         return jsonValue != null ? JSON.parse(jsonValue) : null;
-      } catch(e) {
-        console.log(e)
+      } catch (e) {
+        console.log(e);
       }
     }
     fetchData()
@@ -106,18 +103,18 @@ function Community(props) {
       // })
       .catch((error) => console.log(error));
   }, []);
-  
+
   // console.log("adads", props.loginData.token);
   function uploadImage(data) {
-    console.log(data)
+    console.log(data);
     return new Promise((resolve, reject) => {
       const fileToUpload = image;
-        const dataIMG = new FormData();
-        dataIMG.append('upload', fileToUpload);
-        console.log(dataIMG);
+      const dataIMG = new FormData();
+      dataIMG.append('upload', fileToUpload);
+      console.log(dataIMG);
       const url = `${DOMAIN}/img/photo`;
       fetch(url, {
-        headers: { 'Authorization': `Bearer ${props.loginData.token}` },
+        headers: { Authorization: `Bearer ${props.loginData.token}` },
         method: 'POST',
         body: dataIMG,
       })
@@ -132,7 +129,6 @@ function Community(props) {
         });
     });
   }
-  
 
   useEffect(() => {
     (async () => {
@@ -152,10 +148,9 @@ function Community(props) {
       aspect: [4, 3],
       quality: 1,
       // base64:true,
-      
     });
 
-    console.log("ok",result);
+    console.log('ok', result);
 
     if (!result.cancelled) {
       setImage(result);
@@ -179,7 +174,7 @@ function Community(props) {
         />
       </SafeAreaView>
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
