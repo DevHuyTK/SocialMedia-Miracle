@@ -25,7 +25,13 @@ function Community(props) {
       id: '123',
       userName: 'thang',
       avatar: '',
-      image: '',
+      images: [
+        'https://i.imgur.com/UYiroysl.jpg',
+        'https://i.imgur.com/UPrs1EWl.jpg',
+        'https://i.imgur.com/MABUbpDl.jpg',
+        'https://i.imgur.com/KZsmUi2l.jpg',
+        'https://i.imgur.com/2nCt3Sbl.jpg',
+      ],
       caption: 'test post',
       likesCount: 11,
       postAgo: '6 minute ago',
@@ -165,7 +171,7 @@ function Community(props) {
       <Button title="Pick an image from lib" onPress={chooseImage} />
       {/* {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />} */}
       <Button title="Upload Img" onPress={uploadImage} />
-      <SafeAreaView style={{ marginBottom: 90 }}>
+      <SafeAreaView style={{ marginBottom: 200 }}>
         <FlatList
           data={data}
           keyExtractor={(item) => item.id}

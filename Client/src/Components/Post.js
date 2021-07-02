@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Dimensions, Image } from 'react-native';
+import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { Avatar, Icon } from 'react-native-elements';
+import ImageComp from './ImageComp';
+
+const { width } = Dimensions.get('window');
 
 export default function Post({ post }) {
   const [isLiked, setIsLike] = useState(false);
@@ -14,7 +17,7 @@ export default function Post({ post }) {
   };
 
   return (
-    <View style={{ marginVertical: 10, backgroundColor: '#fff' }}>
+    <View style={{ marginVertical: 10, backgroundColor: '#fff', width: width }}>
       <View style={styles.header}>
         <View style={styles.left}>
           <Avatar
@@ -32,7 +35,7 @@ export default function Post({ post }) {
       <View style={styles.caption}>
         <Text style={{ fontSize: 18 }}>{post.caption}</Text>
       </View>
-      <Image source={require('../images/Logo.png')} style={styles.image} />
+      <ImageComp images={post.images} />
       <View style={styles.footer}>
         <View style={styles.likeIcons}>
           <Icon
@@ -74,10 +77,6 @@ const styles = StyleSheet.create({
   },
   caption: {
     padding: 12,
-  },
-  image: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').width,
   },
   footer: {
     margin: 6,
