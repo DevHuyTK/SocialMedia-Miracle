@@ -11,6 +11,8 @@ import Personal from '../screens/Home/Personal';
 import Account from '../screens/Home/Account';
 import Search from '../screens/Search'
 import AccountDetails from '../screens/Home/AccountDetail';
+import CreatePost from '../screens/CreatePost';
+
 const Stack = createStackNavigator();
 
 const Tab = createBottomTabNavigator();
@@ -70,6 +72,7 @@ export default function Navigation() {
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Search" component={Search} />
         <Stack.Screen name="AccDetail" component={AccountDetails} />
+        <Stack.Screen name="CreatePost" component={CreatePost} />
       </Stack.Navigator>
     </NavigationContainer>
   );

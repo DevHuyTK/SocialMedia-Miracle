@@ -10,11 +10,14 @@ import {
   CameraRoll,
   FlatList,
   SafeAreaView,
+  TouchableOpacity,
 } from 'react-native';
 import Post from '../../../Components/Post';
 import Header from '../../../Components/Header';
 import ImagePicker from 'react-native-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Avatar } from 'react-native-elements';
+import { FontAwesome } from '@expo/vector-icons';
 
 import { DOMAIN } from '../../../store/constant';
 
@@ -40,7 +43,7 @@ function Community(props) {
       id: '456',
       userName: 'doanh',
       avatar: '',
-      image: '',
+      images: '',
       caption:
         'test post test post test post test post test post test post test post test post test post',
       likesCount: 11,
@@ -50,12 +53,57 @@ function Community(props) {
       id: '789',
       userName: 'huy',
       avatar: '',
-      image: '',
+      images: 'https://i.imgur.com/UPrs1EWl.jpg',
       caption: 'test post',
       likesCount: 11,
       postAgo: '30 minute ago',
     },
   ];
+
+  renderHeader = () => {
+    return (
+      <View style={{ width: '100%', height: 100, backgroundColor: '#fff', marginBottom: 10 }}>
+        <View
+          style={{
+            width: '100%',
+            height: '60%',
+            flexDirection: 'row',
+            paddingLeft: 15,
+            alignItems: 'center',
+            borderBottomColor: 'gray',
+            borderBottomWidth: 1,
+          }}
+        >
+          <Avatar
+            size="medium"
+            rounded
+            icon={{ name: 'user', type: 'font-awesome' }}
+            containerStyle={{ backgroundColor: 'gray' }}
+          />
+          <TouchableOpacity
+            onPress={() => props.navigation.navigate('CreatePost')}
+            style={{ width: '80%', marginLeft: 10, borderRadius: 10, paddingLeft: 6 }}
+          >
+            <Text style={{ color: 'gray', fontSize: 20 }}>What's on your mind?</Text>
+          </TouchableOpacity>
+        </View>
+        <TouchableOpacity
+          onPress={chooseImage}
+          style={{
+            width: '100%',
+            height: '40%',
+            flexDirection: 'row',
+            alignItems: 'center',
+            paddingLeft: 20,
+          }}
+        >
+          <FontAwesome name="image" color="green" size={25} />
+          <Text style={{ color: 'black', marginLeft: 10, fontSize: 20 }}>Photo</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  };
+
   // const [data, setData] = useState({});
   const chooseImage = () => {
     let options = {
@@ -166,17 +214,16 @@ function Community(props) {
   return (
     <View style={{ flex: 1 }}>
       <Header onNavigation={props.navigation} />
-      <Text>Community</Text>
       <Text>{data.name}</Text>
-      <Button title="Pick an image from lib" onPress={chooseImage} />
       {/* {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />} */}
       <Button title="Upload Img" onPress={uploadImage} />
-      <SafeAreaView style={{ marginBottom: 200 }}>
+      <SafeAreaView style={{ marginBottom: 140 }}>
         <FlatList
           data={data}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => <Post post={item} />}
           showsVerticalScrollIndicator={false}
+          ListHeaderComponent={renderHeader()}
         />
       </SafeAreaView>
     </View>

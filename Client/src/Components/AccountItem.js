@@ -2,8 +2,17 @@ import React, { useState } from 'react';
 import { Alert } from 'react-native';
 import { ListItem, Icon } from 'react-native-elements';
 
-export default function AccountItem({ parentIcon, parentTitle, list }) {
+export default function AccountItem({ parentIcon, parentTitle, list, onNavigation }) {
   const [expanded, setExpanded] = useState(false);
+
+  const clickEventListener = (key) => {
+    if(parentIcon === 'settings'){
+      if(key === 0) onNavigation.navigate('Search');
+      if(key === 1) onNavigation.navigate('AccDetail');
+    }
+    if(parentIcon === 'help-outline') onNavigation.navigate('CreatePost');
+  }
+
   return (
     <ListItem.Accordion
       style={{ marginVertical: 5, marginHorizontal: 15, borderRadius: 20 }}
@@ -26,7 +35,7 @@ export default function AccountItem({ parentIcon, parentTitle, list }) {
           style={{ marginHorizontal: 30, borderRadius: 20, marginVertical: 5 }}
           containerStyle={{ borderRadius: 20 }}
           key={i}
-          onPress={() => Alert.alert('press')}
+          onPress={() => clickEventListener(i)}
         >
           <Icon name={item.icon} size={30} />
           <ListItem.Content>

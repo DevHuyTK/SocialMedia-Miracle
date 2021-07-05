@@ -76,7 +76,12 @@ function ImageComp({ images }) {
       </View>
     );
   }
-  return <Image source={require('../images/Logo.png')} style={styles.image} />;
+
+  if (images === null || images === '') {
+    return null;
+  }
+
+  return <Image source={{ uri: images }} style={styles.image} />;
 }
 
 const styles = StyleSheet.create({

@@ -64,6 +64,7 @@ const styles = StyleSheet.create({
   },
   left: {
     flexDirection: 'row',
+    paddingLeft: 10,
   },
   right: {
     marginRight: 5,
@@ -76,7 +77,7 @@ const styles = StyleSheet.create({
     color: '#3c3c3c',
   },
   caption: {
-    padding: 12,
+    padding: 16,
   },
   footer: {
     margin: 6,

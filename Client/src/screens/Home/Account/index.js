@@ -4,18 +4,18 @@ import Header from '../../../Components/Header';
 import { Avatar, ListItem, Icon } from 'react-native-elements';
 import AccountItem from '../../../Components/AccountItem';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {DOMAIN} from '../../../store/constant'
+import { DOMAIN } from '../../../store/constant';
 
 function Account({ navigation }) {
-  const[data,setData]= React.useState({
-    "age": 0,
-    "avatar": "",
-    "email": "",
-    "name": "",
-    "role": "",
-    "tagname": "",
+  const [data, setData] = React.useState({
+    age: 0,
+    avatar: '',
+    email: '',
+    name: '',
+    role: '',
+    tagname: '',
   });
-  
+
   const setting = [
     {
       icon: 'settings',
@@ -33,26 +33,26 @@ function Account({ navigation }) {
       title: 'Report problem',
     },
   ];
-  
+
   const handleLogout = () => {
     AsyncStorage.setItem(
       'info',
       JSON.stringify({
-        "age": 0,
-        "avatar": "",
-        "email": "",
-        "name": "",
-        "role": "",
-        "tagname": "",
+        age: 0,
+        avatar: '',
+        email: '',
+        name: '',
+        role: '',
+        tagname: '',
       }),
-    )
-      navigation.navigate("Login")
-  }
+    );
+    navigation.navigate('Login');
+  };
 
   return (
     <View style={{ flex: 1 }}>
       <Header onNavigation={navigation} />
-      
+
       <ScrollView showsVerticalScrollIndicator={false}>
         <TouchableOpacity
           onPress={() => navigation.navigate('AccDetail')}
@@ -65,25 +65,22 @@ function Account({ navigation }) {
           }}
         >
           <View style={{ width: '35%', justifyContent: 'center', alignItems: 'center' }}>
-          {data.avatar?
-            <Avatar
-              size="large"
-              rounded
-              source={{
-                uri:
-                  `${DOMAIN}\img\photo\${}`,
-              }}
-            />
-            :
-            <Avatar
-              size="large"
-              rounded
-              icon={{ name: 'user', type: 'font-awesome' }}
-              containerStyle={{ backgroundColor: 'gray' }}
-            />
-            }
-            
-            
+            {data.avatar ? (
+              <Avatar
+                size="large"
+                rounded
+                source={{
+                  uri: `${DOMAIN}\img\photo\${}`,
+                }}
+              />
+            ) : (
+              <Avatar
+                size="large"
+                rounded
+                icon={{ name: 'user', type: 'font-awesome' }}
+                containerStyle={{ backgroundColor: 'gray' }}
+              />
+            )}
           </View>
           <View style={{ width: '65%', justifyContent: 'center' }}>
             <Text style={{ fontWeight: 'bold', fontSize: 20 }}>Username</Text>
@@ -99,8 +96,18 @@ function Account({ navigation }) {
             marginBottom: 10,
           }}
         />
-        <AccountItem parentIcon="settings" parentTitle="Settings & Privacy" list={setting} />
-        <AccountItem parentIcon="help-outline" parentTitle="Help & Support" list={help} />
+        <AccountItem
+          parentIcon="settings"
+          parentTitle="Settings & Privacy"
+          list={setting}
+          onNavigation={navigation}
+        />
+        <AccountItem
+          parentIcon="help-outline"
+          parentTitle="Help & Support"
+          list={help}
+          onNavigation={navigation}
+        />
         <ListItem.Accordion
           noIcon={true}
           style={{ marginVertical: 5, marginHorizontal: 15, borderRadius: 20 }}
